@@ -67,14 +67,14 @@ namespace SomerenUI
             // hide all other panels
             pnlDashboard.Hide();
 
-            // show students
-            pnlStudents.Show();
+            // show rooms
+            pnlRooms.Show();
 
             try
             {
-                // get and display all students
-                List<Student> students = GetRooms();
-                DisplayRooms(students);
+                // get and display all rooms
+                List<Room> rooms = GetRooms();
+                DisplayRooms(rooms);
             }
             catch (Exception e)
             {
@@ -84,21 +84,21 @@ namespace SomerenUI
 
         private List<Room> GetRooms()
         {
-            RoomService roomService = new roomService();
-            List<Room> rooms = roomService.Gets();
+            RoomService roomService = new RoomService();
+            List<Room> rooms = RoomService.GetRooms();
             return rooms;
         }
 
         private void DisplayRooms(List<Room> rooms)
         {
             // clear the listview before filling it
-            listViewStudents.Clear();
+            listViewRooms.Clear();
 
             foreach (Room room in rooms)
             {
-                ListViewItem li = new ListViewItem(room.naam);
-                li.Tag = room;   // link student object to listview item
-                listViewStudents.Items.Add(li);
+                ListViewItem li = new ListViewItem(room.kamernummer);
+                li.Tag = room;   // link rooms object to listview item
+                listViewRooms.Items.Add(li);
             }
         }
 
@@ -119,7 +119,7 @@ namespace SomerenUI
 
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ShowRoomPanel();
         }
     }
 }
