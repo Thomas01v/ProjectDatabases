@@ -2,6 +2,6 @@
 {
     public class Room
     {
-        public string roomNumber { get; set; }
+        public string kamernummer { get; set; }
     }
 }
