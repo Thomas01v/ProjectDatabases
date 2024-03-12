@@ -23,6 +23,8 @@ namespace SomerenUI {
         private void ShowStudentsPanel() {
             // hide all other panels
             pnlDashboard.Hide();
+            pnlTeachers.Hide();
+            pnlRooms.Hide();
 
             // show students
             pnlStudents.Show();
@@ -127,7 +129,8 @@ namespace SomerenUI {
             int test = teachers.Count;
 
             foreach (Teacher teacher in teachers) {
-                ListViewItem li = new ListViewItem(teacher.naam);
+                int age = (int) (DateTime.Today.Subtract(teacher.geboortedatum).Days / 365.25);
+                ListViewItem li = new ListViewItem($"{teacher.naam}, 0{teacher.telefoonnummer}, {age}");
                 li.Tag = teacher;   // link student object to listview item
                 listViewTeachers.Items.Add(li);
             }

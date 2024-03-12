@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Data;
 using SomerenModel;
+using System;
 
 namespace SomerenDAL
 {
@@ -20,14 +21,16 @@ namespace SomerenDAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
+
+
                 Teacher teacher = new Teacher()
                 {
                     docentnummer = (int) dr["docentnummer"],
                     voornaam = dr["voornaam"].ToString(),
                     achternaam = dr["achternaam"].ToString(),
-                    telefoonnummer = (int)dr["docentnummer"],
-                    //geboortedatum = dr["docentnummer"],
-                    kamernummer = dr["docentnummer"].ToString(),
+                    telefoonnummer = (int)dr["telefoonnummer"],
+                    geboortedatum = (DateTime) dr["geboortedatum"],
+                    kamernummer = dr["kamernummer"].ToString(),
                 };
                 teachers.Add(teacher);
             }
