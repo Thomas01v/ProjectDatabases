@@ -70,8 +70,9 @@ namespace SomerenUI {
             // clear the listview before filling it
             listViewStudents.Clear();
 
-            foreach (Student student in students) {
-                ListViewItem li = new ListViewItem(student.naam);
+            foreach (Student student in students)
+            {
+                ListViewItem li = new ListViewItem($"{student.studentnummer} {student.voornaam} {student.achternaam} {student.telefoonnummer} {student.klas}");
                 li.Tag = student;   // link student object to listview item
                 listViewStudents.Items.Add(li);
             }
