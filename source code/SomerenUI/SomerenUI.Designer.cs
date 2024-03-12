@@ -1,7 +1,5 @@
-﻿namespace SomerenUI
-{
-    partial class SomerenUI
-    {
+﻿namespace SomerenUI {
+    partial class SomerenUI {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SomerenUI));
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,12 +35,18 @@
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
+            pnlTeachers = new System.Windows.Forms.Panel();
+            pnlRooms = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             listViewStudents = new System.Windows.Forms.ListView();
+            listViewTeachers = new System.Windows.Forms.ListView();
+            listViewRooms = new System.Windows.Forms.ListView();
             label1 = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
+            pnlTeachers.SuspendLayout();
+            pnlRooms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -93,6 +94,7 @@
             lecturersToolStripMenuItem.Name = "lecturersToolStripMenuItem";
             lecturersToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
             lecturersToolStripMenuItem.Text = "Lecturers";
+            lecturersToolStripMenuItem.Click += lecturersToolStripMenuItem_Click;
             // 
             // activitiesToolStripMenuItem
             // 
@@ -127,7 +129,6 @@
             // 
             // pnlStudents
             // 
-            pnlStudents.Controls.Add(pictureBox1);
             pnlStudents.Controls.Add(listViewStudents);
             pnlStudents.Controls.Add(label1);
             pnlStudents.Location = new System.Drawing.Point(14, 36);
@@ -135,6 +136,26 @@
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1072, 621);
             pnlStudents.TabIndex = 2;
+            // 
+            // pnlTeachers
+            // 
+            pnlTeachers.Controls.Add(listViewTeachers);
+            pnlTeachers.Controls.Add(label1);
+            pnlTeachers.Location = new System.Drawing.Point(14, 36);
+            pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlTeachers.Name = "pnlTeachers";
+            pnlTeachers.Size = new System.Drawing.Size(1072, 621);
+            pnlTeachers.TabIndex = 2;
+            // 
+            // pnlRooms
+            // 
+            pnlRooms.Controls.Add(listViewRooms);
+            pnlRooms.Controls.Add(label1);
+            pnlRooms.Location = new System.Drawing.Point(14, 36);
+            pnlRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlRooms.Name = "pnlRooms";
+            pnlRooms.Size = new System.Drawing.Size(1072, 621);
+            pnlRooms.TabIndex = 2;
             // 
             // pictureBox1
             // 
@@ -155,6 +176,24 @@
             listViewStudents.TabIndex = 1;
             listViewStudents.UseCompatibleStateImageBehavior = false;
             // 
+            // listViewTeachers
+            // 
+            listViewTeachers.Location = new System.Drawing.Point(18, 56);
+            listViewTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewTeachers.Name = "listViewTeachers";
+            listViewTeachers.Size = new System.Drawing.Size(875, 408);
+            listViewTeachers.TabIndex = 1;
+            listViewTeachers.UseCompatibleStateImageBehavior = false;
+            // 
+            // listViewRooms
+            // 
+            listViewRooms.Location = new System.Drawing.Point(18, 56);
+            listViewRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewRooms.Name = "listViewRooms";
+            listViewRooms.Size = new System.Drawing.Size(875, 408);
+            listViewRooms.TabIndex = 1;
+            listViewRooms.UseCompatibleStateImageBehavior = false;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -170,8 +209,11 @@
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1099, 673);
+            Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             Controls.Add(pnlStudents);
+            Controls.Add(pnlTeachers);
+            Controls.Add(pnlRooms);
             Controls.Add(pnlDashboard);
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -183,6 +225,10 @@
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
             pnlStudents.PerformLayout();
+            pnlTeachers.ResumeLayout(false);
+            pnlTeachers.PerformLayout();
+            pnlRooms.ResumeLayout(false);
+            pnlRooms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -201,8 +247,12 @@
         private System.Windows.Forms.Panel pnlDashboard;
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.Panel pnlStudents;
+        private System.Windows.Forms.Panel pnlTeachers;
+        private System.Windows.Forms.Panel pnlRooms;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewStudents;
+        private System.Windows.Forms.ListView listViewTeachers;
+        private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.Label label1;
     }
 }
