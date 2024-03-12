@@ -114,7 +114,7 @@ namespace SomerenUI {
 
             foreach (Room room in rooms)
             {
-                ListViewItem li = new ListViewItem(room.kamernummer);
+                ListViewItem li = new ListViewItem($"{room.kamernummer}, {room.roomType}");
                 li.Tag = room;   // link rooms object to listview item
                 listViewRooms.Items.Add(li);
             }

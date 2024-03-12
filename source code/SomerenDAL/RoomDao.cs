@@ -24,14 +24,43 @@ namespace SomerenDAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
+                string kamerNummer = dr["kamernummer"].ToString();
+                string query = $"SELECT studentnummer, kamernummer FROM student WHERE kamernummer = '{kamerNummer}'";
+                DataTable roomResult = ExecuteSelectQuery(query);
+
+                RoomType roomType;
+
+                if (roomResult.Rows.Count >0 ) 
+                {
+                    roomType = RoomType.StudentRoom;
+                }
+                else 
+                {
+                    query = $"SELECT docentnummer, kamernummer FROM docent WHERE kamernummer = '{kamerNummer}'";
+                    roomResult = ExecuteSelectQuery(query);
+                    
+                    if (roomResult.Rows.Count > 0 ) 
+                    {
+                        roomType = RoomType.TeacherRoom;
+                    }
+                    else 
+                    {
+                        roomType = RoomType.EmptyRoom;
+                    }
+                }
+
+
                 Room room = new Room()
                 {
-                    kamernummer = dr["kamernummer"].ToString()
+                    kamernummer = kamerNummer,
+                    roomType = roomType
                 };
                 rooms.Add(room);
             }
             return rooms;
         }
+
+
     }
 }
 
