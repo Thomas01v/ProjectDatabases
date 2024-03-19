@@ -32,28 +32,35 @@
             lecturersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             activitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            drinkOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
-            pnlTeachers = new System.Windows.Forms.Panel();
-            pnlRooms = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             listViewStudents = new System.Windows.Forms.ListView();
-            listViewTeachers = new System.Windows.Forms.ListView();
-            listViewRooms = new System.Windows.Forms.ListView();
             label1 = new System.Windows.Forms.Label();
+            pnlTeachers = new System.Windows.Forms.Panel();
+            listViewTeachers = new System.Windows.Forms.ListView();
+            pnlRooms = new System.Windows.Forms.Panel();
+            listViewRooms = new System.Windows.Forms.ListView();
+            pnlDrinkOrder = new System.Windows.Forms.Panel();
+            listViewDrinkOrderStudents = new System.Windows.Forms.ListView();
+            listViewDrinkOrderDrinks = new System.Windows.Forms.ListView();
+            DrinkOrderAmountBox = new System.Windows.Forms.NumericUpDown();
+            DrinkOrderPriceLabel = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlTeachers.SuspendLayout();
             pnlRooms.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlDrinkOrder.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, lecturersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, lecturersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, drinkOrderToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
@@ -109,6 +116,13 @@
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
+            // drinkOrderToolStripMenuItem
+            // 
+            drinkOrderToolStripMenuItem.Name = "drinkOrderToolStripMenuItem";
+            drinkOrderToolStripMenuItem.Size = new System.Drawing.Size(98, 24);
+            drinkOrderToolStripMenuItem.Text = "Drink order";
+            drinkOrderToolStripMenuItem.Click += drinkOrderToolStripMenuItem_Click;
+            // 
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
@@ -130,37 +144,16 @@
             // pnlStudents
             // 
             pnlStudents.Controls.Add(listViewStudents);
-            pnlStudents.Controls.Add(label1);
             pnlStudents.Location = new System.Drawing.Point(14, 36);
             pnlStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pnlStudents.Name = "pnlStudents";
             pnlStudents.Size = new System.Drawing.Size(1072, 621);
             pnlStudents.TabIndex = 2;
             // 
-            // pnlTeachers
-            // 
-            pnlTeachers.Controls.Add(listViewTeachers);
-            pnlTeachers.Controls.Add(label1);
-            pnlTeachers.Location = new System.Drawing.Point(14, 36);
-            pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pnlTeachers.Name = "pnlTeachers";
-            pnlTeachers.Size = new System.Drawing.Size(1072, 621);
-            pnlTeachers.TabIndex = 2;
-            // 
-            // pnlRooms
-            // 
-            pnlRooms.Controls.Add(listViewRooms);
-            pnlRooms.Controls.Add(label1);
-            pnlRooms.Location = new System.Drawing.Point(14, 36);
-            pnlRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(1072, 621);
-            pnlRooms.TabIndex = 2;
-            // 
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(920, 0);
+            pictureBox1.Location = new System.Drawing.Point(910, 56);
             pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(149, 164);
@@ -176,24 +169,6 @@
             listViewStudents.TabIndex = 1;
             listViewStudents.UseCompatibleStateImageBehavior = false;
             // 
-            // listViewTeachers
-            // 
-            listViewTeachers.Location = new System.Drawing.Point(18, 56);
-            listViewTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            listViewTeachers.Name = "listViewTeachers";
-            listViewTeachers.Size = new System.Drawing.Size(875, 408);
-            listViewTeachers.TabIndex = 1;
-            listViewTeachers.UseCompatibleStateImageBehavior = false;
-            // 
-            // listViewRooms
-            // 
-            listViewRooms.Location = new System.Drawing.Point(18, 56);
-            listViewRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            listViewRooms.Name = "listViewRooms";
-            listViewRooms.Size = new System.Drawing.Size(875, 408);
-            listViewRooms.TabIndex = 1;
-            listViewRooms.UseCompatibleStateImageBehavior = false;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -204,17 +179,103 @@
             label1.TabIndex = 0;
             label1.Text = "Students";
             // 
+            // pnlTeachers
+            // 
+            pnlTeachers.Controls.Add(listViewTeachers);
+            pnlTeachers.Location = new System.Drawing.Point(14, 36);
+            pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlTeachers.Name = "pnlTeachers";
+            pnlTeachers.Size = new System.Drawing.Size(1072, 621);
+            pnlTeachers.TabIndex = 2;
+            // 
+            // listViewTeachers
+            // 
+            listViewTeachers.Location = new System.Drawing.Point(18, 56);
+            listViewTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewTeachers.Name = "listViewTeachers";
+            listViewTeachers.Size = new System.Drawing.Size(875, 408);
+            listViewTeachers.TabIndex = 1;
+            listViewTeachers.UseCompatibleStateImageBehavior = false;
+            // 
+            // pnlRooms
+            // 
+            pnlRooms.Controls.Add(listViewRooms);
+            pnlRooms.Location = new System.Drawing.Point(14, 36);
+            pnlRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlRooms.Name = "pnlRooms";
+            pnlRooms.Size = new System.Drawing.Size(1072, 621);
+            pnlRooms.TabIndex = 2;
+            // 
+            // listViewRooms
+            // 
+            listViewRooms.Location = new System.Drawing.Point(18, 56);
+            listViewRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewRooms.Name = "listViewRooms";
+            listViewRooms.Size = new System.Drawing.Size(875, 408);
+            listViewRooms.TabIndex = 1;
+            listViewRooms.UseCompatibleStateImageBehavior = false;
+            // 
+            // pnlDrinkOrder
+            // 
+            pnlDrinkOrder.Controls.Add(listViewDrinkOrderStudents);
+            pnlDrinkOrder.Controls.Add(listViewDrinkOrderDrinks);
+            pnlDrinkOrder.Controls.Add(DrinkOrderAmountBox);
+            pnlDrinkOrder.Controls.Add(DrinkOrderPriceLabel);
+            pnlDrinkOrder.Controls.Add(label1);
+            pnlDrinkOrder.Location = new System.Drawing.Point(14, 36);
+            pnlDrinkOrder.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlDrinkOrder.Name = "pnlDrinkOrder";
+            pnlDrinkOrder.Size = new System.Drawing.Size(1072, 621);
+            pnlDrinkOrder.TabIndex = 2;
+            // 
+            // listViewDrinkOrderStudents
+            // 
+            listViewDrinkOrderStudents.Location = new System.Drawing.Point(18, 56);
+            listViewDrinkOrderStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewDrinkOrderStudents.Name = "listViewDrinkOrderStudents";
+            listViewDrinkOrderStudents.Size = new System.Drawing.Size(875, 102);
+            listViewDrinkOrderStudents.TabIndex = 1;
+            listViewDrinkOrderStudents.UseCompatibleStateImageBehavior = false;
+            // 
+            // listViewDrinkOrderDrinks
+            // 
+            listViewDrinkOrderDrinks.Location = new System.Drawing.Point(18, 170);
+            listViewDrinkOrderDrinks.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewDrinkOrderDrinks.Name = "listViewDrinkOrderDrinks";
+            listViewDrinkOrderDrinks.Size = new System.Drawing.Size(875, 102);
+            listViewDrinkOrderDrinks.TabIndex = 1;
+            listViewDrinkOrderDrinks.UseCompatibleStateImageBehavior = false;
+            // 
+            // DrinkOrderAmountBox
+            // 
+            DrinkOrderAmountBox.Location = new System.Drawing.Point(18, 284);
+            DrinkOrderAmountBox.Name = "DrinkOrderAmountBox";
+            DrinkOrderAmountBox.Size = new System.Drawing.Size(125, 27);
+            DrinkOrderAmountBox.TabIndex = 3;
+            DrinkOrderAmountBox.ValueChanged += drinkOrderNumericUpDownValueChanged;
+            // 
+            // DrinkOrderPriceLabel
+            // 
+            DrinkOrderPriceLabel.AutoSize = true;
+            DrinkOrderPriceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            DrinkOrderPriceLabel.Location = new System.Drawing.Point(18, 323);
+            DrinkOrderPriceLabel.Name = "DrinkOrderPriceLabel";
+            DrinkOrderPriceLabel.Size = new System.Drawing.Size(134, 41);
+            DrinkOrderPriceLabel.TabIndex = 0;
+            DrinkOrderPriceLabel.Text = "test";
+            // 
             // SomerenUI
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1099, 673);
-            Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             Controls.Add(pnlStudents);
             Controls.Add(pnlTeachers);
             Controls.Add(pnlRooms);
             Controls.Add(pnlDashboard);
+            Controls.Add(pnlDrinkOrder);
+            Controls.Add(pictureBox1);
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "SomerenUI";
@@ -224,12 +285,11 @@
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
-            pnlStudents.PerformLayout();
-            pnlTeachers.ResumeLayout(false);
-            pnlTeachers.PerformLayout();
-            pnlRooms.ResumeLayout(false);
-            pnlRooms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            pnlTeachers.ResumeLayout(false);
+            pnlRooms.ResumeLayout(false);
+            pnlDrinkOrder.ResumeLayout(false);
+            pnlDrinkOrder.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -249,10 +309,16 @@
         private System.Windows.Forms.Panel pnlStudents;
         private System.Windows.Forms.Panel pnlTeachers;
         private System.Windows.Forms.Panel pnlRooms;
+        private System.Windows.Forms.Panel pnlDrinkOrder;
+        private System.Windows.Forms.NumericUpDown DrinkOrderAmountBox;
+        private System.Windows.Forms.Label DrinkOrderPriceLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewStudents;
         private System.Windows.Forms.ListView listViewTeachers;
         private System.Windows.Forms.ListView listViewRooms;
+        private System.Windows.Forms.ListView listViewDrinkOrderStudents;
+        private System.Windows.Forms.ListView listViewDrinkOrderDrinks;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem drinkOrderToolStripMenuItem;
     }
 }
