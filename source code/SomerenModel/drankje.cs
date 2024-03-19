@@ -14,5 +14,20 @@
         public decimal aankoopprijs { get; set; }
 
         public decimal verkoopprijs { get; set; }
+
+        public string type 
+        {
+            get
+            {
+                if (btw == 0.21)
+                {
+                    return "alcoholisch";
+                }
+                else
+                {
+                    return "niet alcoholisch";
+                }
+            }
+        }
     }
 }
