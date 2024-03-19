@@ -9,6 +9,10 @@
 
         public int voorraad { get; set; }
 
-        public double btw {  get; set; }
+        public double btw { get; set; }
+
+        public decimal aankoopprijs { get; set; }
+
+        public decimal verkoopprijs { get; set; }
     }
 }
