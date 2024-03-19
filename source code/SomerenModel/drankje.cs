@@ -19,7 +19,7 @@
         {
             get
             {
-                if (btw == 0.21)
+                if (btw == 21)
                 {
                     return "alcoholisch";
                 }
