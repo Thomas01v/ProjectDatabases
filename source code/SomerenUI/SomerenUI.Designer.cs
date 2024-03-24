@@ -33,6 +33,7 @@
             lecturersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             activitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            drankjesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
             pnlStudents = new System.Windows.Forms.Panel();
@@ -44,8 +45,18 @@
             listViewRooms = new System.Windows.Forms.ListView();
             pnlDrankjes = new System.Windows.Forms.Panel();
             listViewDrankjes = new System.Windows.Forms.ListView();
+            naamTb = new System.Windows.Forms.TextBox();
+            prijsTb = new System.Windows.Forms.TextBox();
+            btwTb = new System.Windows.Forms.TextBox();
+            stockTb = new System.Windows.Forms.TextBox();
+            naam = new System.Windows.Forms.Label();
+            prijs = new System.Windows.Forms.Label();
+            btw = new System.Windows.Forms.Label();
+            stock = new System.Windows.Forms.Label();
+            create = new System.Windows.Forms.Button();
+            change = new System.Windows.Forms.Button();
+            delete = new System.Windows.Forms.Button();
             pictureBox1 = new System.Windows.Forms.PictureBox();
-            drankjesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -113,6 +124,13 @@
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
+            // drankjesToolStripMenuItem
+            // 
+            drankjesToolStripMenuItem.Name = "drankjesToolStripMenuItem";
+            drankjesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            drankjesToolStripMenuItem.Text = "Drankjes";
+            drankjesToolStripMenuItem.Click += drankjesToolStripMenuItem_Click;
+            // 
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
@@ -145,22 +163,6 @@
             listViewStudents.Size = new System.Drawing.Size(766, 307);
             listViewStudents.TabIndex = 1;
             listViewStudents.UseCompatibleStateImageBehavior = false;
-            // 
-            // pnlDrankjes
-            // 
-            pnlDrankjes.Controls.Add(listViewDrankjes);
-            pnlDrankjes.Location = new System.Drawing.Point(12, 27);
-            pnlDrankjes.Name = "pnlDrankjes";
-            pnlDrankjes.Size = new System.Drawing.Size(938, 466);
-            pnlDrankjes.TabIndex = 2;
-            // 
-            // listViewDrankjes
-            // 
-            listViewDrankjes.Location = new System.Drawing.Point(16, 42);
-            listViewDrankjes.Name = "listViewDrankjes";
-            listViewDrankjes.Size = new System.Drawing.Size(766, 307);
-            listViewDrankjes.TabIndex = 1;
-            listViewDrankjes.UseCompatibleStateImageBehavior = false;
             // 
             // label1
             // 
@@ -205,6 +207,128 @@
             listViewRooms.TabIndex = 1;
             listViewRooms.UseCompatibleStateImageBehavior = false;
             // 
+            // pnlDrankjes
+            // 
+            pnlDrankjes.Controls.Add(listViewDrankjes);
+            pnlDrankjes.Controls.Add(naamTb);
+            pnlDrankjes.Controls.Add(prijsTb);
+            pnlDrankjes.Controls.Add(btwTb);
+            pnlDrankjes.Controls.Add(stockTb);
+            pnlDrankjes.Controls.Add(naam);
+            pnlDrankjes.Controls.Add(prijs);
+            pnlDrankjes.Controls.Add(btw);
+            pnlDrankjes.Controls.Add(stock);
+            pnlDrankjes.Controls.Add(create);
+            pnlDrankjes.Controls.Add(change);
+            pnlDrankjes.Controls.Add(delete);
+            pnlDrankjes.Location = new System.Drawing.Point(12, 27);
+            pnlDrankjes.Name = "pnlDrankjes";
+            pnlDrankjes.Size = new System.Drawing.Size(938, 466);
+            pnlDrankjes.TabIndex = 2;
+            // 
+            // listViewDrankjes
+            // 
+            listViewDrankjes.Location = new System.Drawing.Point(16, 42);
+            listViewDrankjes.Name = "listViewDrankjes";
+            listViewDrankjes.Size = new System.Drawing.Size(766, 100);
+            listViewDrankjes.TabIndex = 1;
+            listViewDrankjes.UseCompatibleStateImageBehavior = false;
+            listViewDrankjes.Click += drankjesListView_Click;
+            // 
+            // naamTb
+            // 
+            naamTb.Location = new System.Drawing.Point(200, 200);
+            naamTb.Name = "naamTb";
+            naamTb.Size = new System.Drawing.Size(100, 23);
+            naamTb.TabIndex = 4;
+            // 
+            // prijsTb
+            // 
+            prijsTb.Location = new System.Drawing.Point(200, 240);
+            prijsTb.Name = "prijsTb";
+            prijsTb.Size = new System.Drawing.Size(100, 23);
+            prijsTb.TabIndex = 4;
+            // 
+            // btwTb
+            // 
+            btwTb.Location = new System.Drawing.Point(200, 280);
+            btwTb.Name = "btwTb";
+            btwTb.Size = new System.Drawing.Size(100, 23);
+            btwTb.TabIndex = 4;
+            // 
+            // stockTb
+            // 
+            stockTb.Location = new System.Drawing.Point(200, 320);
+            stockTb.Name = "stockTb";
+            stockTb.Size = new System.Drawing.Size(100, 23);
+            stockTb.TabIndex = 4;
+            // 
+            // naam
+            // 
+            naam.AutoSize = true;
+            naam.Location = new System.Drawing.Point(100, 200);
+            naam.Name = "naam";
+            naam.Size = new System.Drawing.Size(37, 15);
+            naam.TabIndex = 3;
+            naam.Text = "naam";
+            // 
+            // prijs
+            // 
+            prijs.AutoSize = true;
+            prijs.Location = new System.Drawing.Point(100, 240);
+            prijs.Name = "prijs";
+            prijs.Size = new System.Drawing.Size(29, 15);
+            prijs.TabIndex = 3;
+            prijs.Text = "prijs";
+            // 
+            // btw
+            // 
+            btw.AutoSize = true;
+            btw.Location = new System.Drawing.Point(100, 280);
+            btw.Name = "btw";
+            btw.Size = new System.Drawing.Size(27, 15);
+            btw.TabIndex = 3;
+            btw.Text = "btw";
+            // 
+            // stock
+            // 
+            stock.AutoSize = true;
+            stock.Location = new System.Drawing.Point(100, 320);
+            stock.Name = "stock";
+            stock.Size = new System.Drawing.Size(35, 15);
+            stock.TabIndex = 3;
+            stock.Text = "stock";
+            // 
+            // create
+            // 
+            create.Location = new System.Drawing.Point(100, 160);
+            create.Name = "create";
+            create.Size = new System.Drawing.Size(75, 23);
+            create.TabIndex = 2;
+            create.Text = "Create";
+            create.UseVisualStyleBackColor = true;
+            create.Click += createButton_Click;
+            // 
+            // change
+            // 
+            change.Location = new System.Drawing.Point(200, 160);
+            change.Name = "change";
+            change.Size = new System.Drawing.Size(75, 23);
+            change.TabIndex = 2;
+            change.Text = "Change";
+            change.UseVisualStyleBackColor = true;
+            create.Click += changeButton_Click;
+            // 
+            // delete
+            // 
+            delete.Location = new System.Drawing.Point(300, 160);
+            delete.Name = "delete";
+            delete.Size = new System.Drawing.Size(75, 23);
+            delete.TabIndex = 2;
+            delete.Text = "Delete";
+            delete.UseVisualStyleBackColor = true;
+            create.Click += deleteButton_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
@@ -213,13 +337,6 @@
             pictureBox1.Size = new System.Drawing.Size(130, 123);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
-            // 
-            // drankjesToolStripMenuItem
-            // 
-            drankjesToolStripMenuItem.Name = "drankjesToolStripMenuItem";
-            drankjesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            drankjesToolStripMenuItem.Text = "Drankjes";
-            drankjesToolStripMenuItem.Click += drankjesToolStripMenuItem_Click;
             // 
             // SomerenUI
             // 
@@ -241,10 +358,11 @@
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
-            pnlDrankjes.ResumeLayout(false);
             pnlTeachers.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
             pnlRooms.PerformLayout();
+            pnlDrankjes.ResumeLayout(false);
+            pnlDrankjes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -268,11 +386,21 @@
         private System.Windows.Forms.Panel pnlRooms;
         private System.Windows.Forms.Panel pnlDrankjes;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListView listViewStudents;
         private System.Windows.Forms.ListView listViewTeachers;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.ListView listViewDrankjes;
         private System.Windows.Forms.Label label1;
-        
+        private System.Windows.Forms.ListView listViewStudents;
+        private System.Windows.Forms.Label naam;
+        private System.Windows.Forms.Label prijs;
+        private System.Windows.Forms.Label btw;
+        private System.Windows.Forms.Label stock;
+        private System.Windows.Forms.Button create;
+        private System.Windows.Forms.Button change;
+        private System.Windows.Forms.Button delete;
+        private System.Windows.Forms.TextBox naamTb;
+        private System.Windows.Forms.TextBox prijsTb;
+        private System.Windows.Forms.TextBox btwTb;
+        private System.Windows.Forms.TextBox stockTb;
     }
 }

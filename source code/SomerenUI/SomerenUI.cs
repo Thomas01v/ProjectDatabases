@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Drawing.Text;
 
 namespace SomerenUI {
     public partial class SomerenUI : Form
@@ -113,12 +114,11 @@ namespace SomerenUI {
         private void DisplayDrankjes(List<Drankje> drankjes)
         {
             // clear the listview before filling it
-            listViewStudents.Clear();
-
+            listViewDrankjes.Clear();
+            DrankjeService drankjeService = new DrankjeService();
             foreach (Drankje drankje in drankjes)
             {
-
-                ListViewItem li = new ListViewItem($"{drankje.dranknaam} {drankje.type} {drankje.verkoopprijs:0.00} {drankje.voorraad}");
+                ListViewItem li = new ListViewItem($"{drankje.dranknaam} {drankje.type} {drankje.verkoopprijs:0.00} {drankje.voorraad} {drankjeService.VoorraadStatus(drankje)}");
                 li.Tag = drankje;   // link drankje object to listview item
                 listViewDrankjes.Items.Add(li);
             }
@@ -223,5 +223,56 @@ namespace SomerenUI {
         {
             ShowDrankjePanel();
         }
+
+        private void drankjesListView_Click(object sender, EventArgs e)
+        {
+            displayDrankjeInfo();
+        }
+
+        private void createButton_Click(object sender, EventArgs e)
+        {
+            string name = naamTb.Text;
+            decimal prijs = decimal.Parse(prijsTb.Text);
+            double btw = double.Parse(btwTb.Text);
+            int stock = int.Parse(stockTb.Text);
+
+            Drankje drankje = new Drankje(name, prijs, btw, stock);
+            DrankjeService drankjeService = new DrankjeService();
+            drankjeService.AddDrankje(drankje);
+            this.Close();
+        }
+
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+            string name = naamTb.Text;
+            decimal prijs = decimal.Parse(prijsTb.Text);
+            double btw = double.Parse(btwTb.Text);
+            int stock = int.Parse(stockTb.Text);
+
+            Drankje drankje = new Drankje(name, prijs, btw, stock);
+            DrankjeService drankjeService = new DrankjeService();
+            drankjeService.ChangeDrankje(drankje);
+            this.Close();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            DrankjeService drankjeService = new DrankjeService();
+            drankjeService.DeleteDrankje((Drankje)/* manier zoeken om het juiste drankje te pakken*/);
+        }
+        private void displayDrankjeInfo()
+        {
+            Object O = listViewDrankjes.SelectedItems[0].Tag;
+            if (O.GetType() == typeof(Drankje))
+            {
+                Drankje drankje = (Drankje)O;
+                naamTb.Text = drankje.dranknaam;
+                prijsTb.Text = $"{drankje.verkoopprijs:F2}";
+                btwTb.Text = $"{drankje.btw:F0}";
+                stockTb.Text = $"{drankje.voorraad}";
+            }
+
+        }
+
     }
 }
