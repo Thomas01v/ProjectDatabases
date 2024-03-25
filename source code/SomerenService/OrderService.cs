@@ -5,7 +5,7 @@ namespace SomerenService {
     public class OrderService {
 
         private OrderDao orderdb = new OrderDao();
-        public string createOrder(Order order) {
+        public bool createOrder(Order order) {
 
             DrankjeService drankjeservice = new DrankjeService();
             Drankje voorraadDrankje = drankjeservice.getByID(order.dranknummer);
@@ -14,9 +14,9 @@ namespace SomerenService {
                 voorraadDrankje.voorraad -= order.aantal;
                 drankjeservice.updateDrankje(voorraadDrankje);
 
-                return $"{voorraadDrankje.dranknaam} besteld. nieuwe voorraad: {voorraadDrankje.voorraad}";
+                return true;
             }else {
-                return $"niet genoeg {voorraadDrankje.dranknaam} op voorraad. ({voorraadDrankje.voorraad})";
+                return false;
             }
         }
     }

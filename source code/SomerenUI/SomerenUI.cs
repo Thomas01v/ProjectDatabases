@@ -96,9 +96,14 @@ namespace SomerenUI {
             // clear the listview before filling it
             displayView.Clear();
 
+            displayView.Columns.Add("dranknaam", 256);
+            displayView.Columns.Add("soort", 128);
+            displayView.Columns.Add("verkoopprijs", 128);
+            displayView.Columns.Add("voorraad", 128);
+
             foreach (Drankje drankje in drankjes) {
 
-                ListViewItem li = new ListViewItem($"{drankje.dranknaam} {drankje.type} {drankje.verkoopprijs:0.00} {drankje.voorraad}");
+                ListViewItem li = new ListViewItem(new[] { drankje.dranknaam, drankje.type.ToString(), $"€ {drankje.verkoopprijs:0.00}", drankje.voorraad.ToString() });
                 li.Tag = drankje;   // link drankje object to listview item
                 displayView.Items.Add(li);
             }
@@ -108,8 +113,19 @@ namespace SomerenUI {
             // clear the listview before filling it
             displayView.Clear();
 
+            displayView.Columns.Add("studentnummer", 128);
+            displayView.Columns.Add("naam", 256);
+            displayView.Columns.Add("telefoonnummer", 256);
+            displayView.Columns.Add("klas", 128);
+
             foreach (Student student in students) {
-                ListViewItem li = new ListViewItem($"{student.studentnummer} {student.voornaam} {student.achternaam} {student.telefoonnummer} {student.klas}");
+                string telefoonnummer;
+                if (student.telefoonnummer != 0) {
+                    telefoonnummer = $"0{student.telefoonnummer}";
+                }else {
+                    telefoonnummer = "-";
+                }
+                ListViewItem li = new ListViewItem(new[] { student.studentnummer.ToString(), student.naam,telefoonnummer, student.klas.ToString() });
                 li.Tag = student;   // link student object to listview item
                 displayView.Items.Add(li);
             }
@@ -151,19 +167,21 @@ namespace SomerenUI {
         }
 
         private void UpdateOrderPrice() {
+            //check if required data is selected
             if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0) {
                 Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
                 Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
                 int amount = (int)DrinkOrderAmountBox.Value;
 
                 decimal price = drankje.verkoopprijs * amount;
-                DrinkOrderPriceLabel.Text = $"Student {student.naam} orders {amount} {drankje.dranknaam} for € {price:0.00}";
+                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor € {price:0.00}";
             }
 
         }
 
         private void SubmitOrder() {
             int amount = (int)DrinkOrderAmountBox.Value;
+            //check if required data is selected
             if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0 && amount > 0) {
                 Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
                 Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
@@ -176,7 +194,24 @@ namespace SomerenUI {
                 };
 
                 OrderService orderService = new OrderService();
-                DrinkOrderResultLabel.Text = orderService.createOrder(newOrder);
+                string resultmessage;
+                if (orderService.createOrder(newOrder)) {
+                    resultmessage = $"{drankje.dranknaam} besteld. nieuwe voorraad: {drankje.voorraad - newOrder.aantal}";
+
+                    //refresh the display
+                    try {
+                        // get and display all drinks
+                        List<Drankje> drankjes = GetDrankjes();
+                        DisplayDrankjes(drankjes, listViewDrinkOrderDrinks);
+                    } catch (Exception e) {
+                        MessageBox.Show("Something went wrong while reloading the drink amounts: " + e.Message);
+                    }
+                    DrinkOrderPriceLabel.Text = "Selecteer een Student, drankje en hoeveelheid";
+                } else {
+                    resultmessage = $"niet genoeg {drankje.dranknaam} op voorraad. ({drankje.voorraad})";
+                }
+
+                DrinkOrderResultLabel.Text = resultmessage;
             }
         }
 
@@ -190,8 +225,11 @@ namespace SomerenUI {
             // clear the listview before filling it
             listViewRooms.Clear();
 
+            listViewRooms.Columns.Add("kamernummer", 256);
+            listViewRooms.Columns.Add("kamersoort", 128);
+
             foreach (Room room in rooms) {
-                ListViewItem li = new ListViewItem($"{room.kamernummer}, {room.roomType}");
+                ListViewItem li = new ListViewItem(new[] { room.kamernummer, room.roomType.ToString() });
                 li.Tag = room;   // link rooms object to listview item
                 listViewRooms.Items.Add(li);
             }
@@ -201,12 +239,15 @@ namespace SomerenUI {
         private void DisplayTeachers(List<Teacher> teachers) {
             // clear the listview before filling it
             listViewTeachers.Clear();
-            int test = teachers.Count;
+
+            listViewTeachers.Columns.Add("naam", 256);
+            listViewTeachers.Columns.Add("telefoonnummer", 256);
+            listViewTeachers.Columns.Add("leeftijd", 128);
 
             foreach (Teacher teacher in teachers) {
                 int age = (int)(DateTime.Today.Subtract(teacher.geboortedatum).Days / 365.25);
-                ListViewItem li = new ListViewItem($"{teacher.naam}, 0{teacher.telefoonnummer}, {age}");
-                li.Tag = teacher;   // link student object to listview item
+                ListViewItem li = new ListViewItem(new[] { teacher.naam, $"0{teacher.telefoonnummer}", age.ToString()});
+                li.Tag = teacher;   // link teacher object to listview item
                 listViewTeachers.Items.Add(li);
             }
         }

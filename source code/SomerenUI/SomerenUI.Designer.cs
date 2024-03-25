@@ -1,4 +1,6 @@
-﻿namespace SomerenUI {
+﻿using SomerenModel;
+
+namespace SomerenUI {
     partial class SomerenUI {
         /// <summary>
         ///  Required designer variable.
@@ -172,6 +174,7 @@
             listViewStudents.Size = new System.Drawing.Size(999, 543);
             listViewStudents.TabIndex = 1;
             listViewStudents.UseCompatibleStateImageBehavior = false;
+            listViewStudents.View = System.Windows.Forms.View.Details;
             // 
             // pictureBox1
             // 
@@ -210,6 +213,7 @@
             listViewTeachers.Size = new System.Drawing.Size(999, 543);
             listViewTeachers.TabIndex = 1;
             listViewTeachers.UseCompatibleStateImageBehavior = false;
+            listViewTeachers.View = System.Windows.Forms.View.Details;
             // 
             // pnlRooms
             // 
@@ -228,6 +232,7 @@
             listViewRooms.Size = new System.Drawing.Size(999, 543);
             listViewRooms.TabIndex = 1;
             listViewRooms.UseCompatibleStateImageBehavior = false;
+            listViewRooms.View = System.Windows.Forms.View.Details;
             // 
             // pnlDrinkOrder
             // 
@@ -253,6 +258,8 @@
             listViewDrinkOrderStudents.TabIndex = 1;
             listViewDrinkOrderStudents.UseCompatibleStateImageBehavior = false;
             listViewDrinkOrderStudents.Click += drinkOrderStudentListViewItem_Click;
+            listViewDrinkOrderStudents.View = System.Windows.Forms.View.Details;
+            listViewDrinkOrderStudents.FullRowSelect = true;
             // 
             // listViewDrinkOrderDrinks
             // 
@@ -263,6 +270,8 @@
             listViewDrinkOrderDrinks.TabIndex = 1;
             listViewDrinkOrderDrinks.UseCompatibleStateImageBehavior = false;
             listViewDrinkOrderDrinks.Click += drinkOrderDrinkListViewItem_Click;
+            listViewDrinkOrderDrinks.View = System.Windows.Forms.View.Details;
+            listViewDrinkOrderDrinks.FullRowSelect = true;
             // 
             // DrinkOrderAmountBox
             // 
@@ -281,7 +290,7 @@
             DrinkOrderPriceLabel.Name = "DrinkOrderPriceLabel";
             DrinkOrderPriceLabel.Size = new System.Drawing.Size(44, 28);
             DrinkOrderPriceLabel.TabIndex = 0;
-            DrinkOrderPriceLabel.Text = "Please select a Student, Drink and amount.";
+            DrinkOrderPriceLabel.Text = "Selecteer een Student, drankje en hoeveelheid";
             //
             // DrinkOrderSubmitButton
             //
@@ -317,6 +326,7 @@
             listViewDrankjes.Size = new System.Drawing.Size(875, 408);
             listViewDrankjes.TabIndex = 1;
             listViewDrankjes.UseCompatibleStateImageBehavior = false;
+            listViewDrankjes.View = System.Windows.Forms.View.Details;
             // 
             // SomerenUI
             // 
