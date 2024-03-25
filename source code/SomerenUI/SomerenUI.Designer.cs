@@ -45,6 +45,10 @@ namespace SomerenUI {
             listViewTeachers = new System.Windows.Forms.ListView();
             pnlRooms = new System.Windows.Forms.Panel();
             listViewRooms = new System.Windows.Forms.ListView();
+            pnlDrankjes = new System.Windows.Forms.Panel();
+            listViewDrankjes = new System.Windows.Forms.ListView();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            drankjesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             pnlRevenueReport = new System.Windows.Forms.Panel();
             firstDate = new System.Windows.Forms.DateTimePicker();
@@ -55,6 +59,7 @@ namespace SomerenUI {
             pnlStudents.SuspendLayout();
             pnlTeachers.SuspendLayout();
             pnlRooms.SuspendLayout();
+            pnlDrankjes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlRevenueReport.SuspendLayout();
             SuspendLayout();
@@ -65,8 +70,7 @@ namespace SomerenUI {
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem, studentsToolStripMenuItem, lecturersToolStripMenuItem, activitiesToolStripMenuItem, roomsToolStripMenuItem, revenueReportToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            menuStrip1.Size = new System.Drawing.Size(1099, 30);
+            menuStrip1.Size = new System.Drawing.Size(962, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -74,47 +78,47 @@ namespace SomerenUI {
             // 
             dashboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { dashboardToolStripMenuItem1, exitToolStripMenuItem });
             dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
-            dashboardToolStripMenuItem.Size = new System.Drawing.Size(100, 24);
+            dashboardToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             dashboardToolStripMenuItem.Text = "Application";
             // 
             // dashboardToolStripMenuItem1
             // 
             dashboardToolStripMenuItem1.Name = "dashboardToolStripMenuItem1";
-            dashboardToolStripMenuItem1.Size = new System.Drawing.Size(165, 26);
+            dashboardToolStripMenuItem1.Size = new System.Drawing.Size(131, 22);
             dashboardToolStripMenuItem1.Text = "Dashboard";
             dashboardToolStripMenuItem1.Click += dashboardToolStripMenuItem1_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            exitToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // studentsToolStripMenuItem
             // 
             studentsToolStripMenuItem.Name = "studentsToolStripMenuItem";
-            studentsToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            studentsToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             studentsToolStripMenuItem.Text = "Students";
             studentsToolStripMenuItem.Click += studentsToolStripMenuItem_Click;
             // 
             // lecturersToolStripMenuItem
             // 
             lecturersToolStripMenuItem.Name = "lecturersToolStripMenuItem";
-            lecturersToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            lecturersToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             lecturersToolStripMenuItem.Text = "Lecturers";
             lecturersToolStripMenuItem.Click += lecturersToolStripMenuItem_Click;
             // 
             // activitiesToolStripMenuItem
             // 
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
-            activitiesToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            activitiesToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             activitiesToolStripMenuItem.Text = "Activities";
             // 
             // roomsToolStripMenuItem
             // 
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
-            roomsToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
+            roomsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             roomsToolStripMenuItem.Text = "Rooms";
             roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
@@ -128,18 +132,17 @@ namespace SomerenUI {
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
-            pnlDashboard.Location = new System.Drawing.Point(14, 36);
-            pnlDashboard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlDashboard.Location = new System.Drawing.Point(12, 27);
             pnlDashboard.Name = "pnlDashboard";
-            pnlDashboard.Size = new System.Drawing.Size(1072, 621);
+            pnlDashboard.Size = new System.Drawing.Size(938, 466);
             pnlDashboard.TabIndex = 1;
             // 
             // lblDashboard
             // 
             lblDashboard.AutoSize = true;
-            lblDashboard.Location = new System.Drawing.Point(15, 17);
+            lblDashboard.Location = new System.Drawing.Point(13, 13);
             lblDashboard.Name = "lblDashboard";
-            lblDashboard.Size = new System.Drawing.Size(262, 20);
+            lblDashboard.Size = new System.Drawing.Size(208, 15);
             lblDashboard.TabIndex = 0;
             lblDashboard.Text = "Welcome to the Someren Application!";
             // 
@@ -149,7 +152,7 @@ namespace SomerenUI {
             pnlStudents.Location = new System.Drawing.Point(14, 36);
             pnlStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pnlStudents.Name = "pnlStudents";
-            pnlStudents.Size = new System.Drawing.Size(1072, 621);
+            pnlStudents.Size = new System.Drawing.Size(938, 466);
             pnlStudents.TabIndex = 2;
             // 
             // listViewStudents
@@ -177,7 +180,7 @@ namespace SomerenUI {
             pnlTeachers.Location = new System.Drawing.Point(14, 36);
             pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pnlTeachers.Name = "pnlTeachers";
-            pnlTeachers.Size = new System.Drawing.Size(1072, 621);
+            pnlTeachers.Size = new System.Drawing.Size(938, 466);
             pnlTeachers.TabIndex = 2;
             // 
             // listViewTeachers
@@ -193,10 +196,9 @@ namespace SomerenUI {
             // 
             pnlRooms.Controls.Add(listViewRooms);
             pnlRooms.Controls.Add(label1);
-            pnlRooms.Location = new System.Drawing.Point(14, 36);
-            pnlRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlRooms.Location = new System.Drawing.Point(12, 27);
             pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(1072, 621);
+            pnlRooms.Size = new System.Drawing.Size(938, 466);
             pnlRooms.TabIndex = 2;
             // 
             // listViewRooms
@@ -211,10 +213,9 @@ namespace SomerenUI {
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(920, 0);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pictureBox1.Location = new System.Drawing.Point(805, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(149, 164);
+            pictureBox1.Size = new System.Drawing.Size(130, 123);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
@@ -251,7 +252,12 @@ namespace SomerenUI {
             lastDate.MaxDate = DateTime.Today;
             // 
             // amountOfSales
+            // drankjesToolStripMenuItem
             // 
+            drankjesToolStripMenuItem.Name = "drankjesToolStripMenuItem";
+            drankjesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            drankjesToolStripMenuItem.Text = "Drankjes";
+            drankjesToolStripMenuItem.Click += drankjesToolStripMenuItem_Click;
             amountOfSales.AutoSize = true;
             amountOfSales.Location = new System.Drawing.Point(45, 154);
             amountOfSales.Name = "amountOfSales";
@@ -260,18 +266,18 @@ namespace SomerenUI {
             // 
             // SomerenUI
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1099, 673);
+            ClientSize = new System.Drawing.Size(962, 505);
             Controls.Add(pictureBox1);
             Controls.Add(menuStrip1);
             Controls.Add(pnlStudents);
             Controls.Add(pnlTeachers);
             Controls.Add(pnlRooms);
+            Controls.Add(pnlDrankjes);
             Controls.Add(pnlDashboard);
             Controls.Add(pnlRevenueReport);
             MainMenuStrip = menuStrip1;
-            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "SomerenUI";
             Text = "SomerenApp";
             menuStrip1.ResumeLayout(false);
@@ -279,7 +285,7 @@ namespace SomerenUI {
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
-            pnlStudents.PerformLayout();
+            pnlDrankjes.ResumeLayout(false);
             pnlTeachers.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
             pnlRooms.PerformLayout();
@@ -299,17 +305,20 @@ namespace SomerenUI {
         private System.Windows.Forms.ToolStripMenuItem lecturersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activitiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem roomsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem drankjesToolStripMenuItem;
         private System.Windows.Forms.Panel pnlDashboard;
         private System.Windows.Forms.Label lblDashboard;
         private System.Windows.Forms.Panel pnlStudents;
         private System.Windows.Forms.Panel pnlTeachers;
         private System.Windows.Forms.Panel pnlRooms;
+        private System.Windows.Forms.Panel pnlDrankjes;
         private System.Windows.Forms.Panel pnlRevenueReport;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewStudents;
         private System.Windows.Forms.ListView listViewTeachers;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.ListView listRevenueReport;
+        private System.Windows.Forms.ListView listViewDrankjes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem revenueReportToolStripMenuItem;
         private System.Windows.Forms.DateTimePicker firstDate;

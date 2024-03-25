@@ -79,6 +79,28 @@ namespace SomerenUI {
             }
         }
 
+        private void ShowDrankjePanel()
+        {
+            // hide all other panels
+            pnlDashboard.Hide();
+            pnlStudents.Hide();
+            pnlRooms.Hide();
+            pnlTeachers.Hide();
+
+            // show drankjes
+            pnlDrankjes.Show();
+
+            try
+            {
+                // get and display all drankjes
+                List<Drankje> drankjes = GetDrankjes();
+                DisplayDrankjes(drankjes);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the drankjes: " + e.Message);
+            }
+        }
         private List<Student> GetStudents()
         {
             StudentService studentService = new StudentService();
@@ -91,6 +113,27 @@ namespace SomerenUI {
             TeacherService teacherService = new TeacherService();
             List<Teacher> teachers = teacherService.GetTeachers();
             return teachers;
+        }
+
+        private List<Drankje> GetDrankjes()
+        {
+            DrankjeService drankjeService = new DrankjeService();
+            List<Drankje> drankjes = drankjeService.GetDrankjes();
+            return drankjes;
+        }
+
+        private void DisplayDrankjes(List<Drankje> drankjes)
+        {
+            // clear the listview before filling it
+            listViewStudents.Clear();
+
+            foreach (Drankje drankje in drankjes)
+            {
+
+                ListViewItem li = new ListViewItem($"{drankje.dranknaam} {drankje.type} {drankje.verkoopprijs:0.00} {drankje.voorraad}");
+                li.Tag = drankje;   // link drankje object to listview item
+                listViewDrankjes.Items.Add(li);
+            }
         }
 
         private void DisplayStudents(List<Student> students)
@@ -186,6 +229,11 @@ namespace SomerenUI {
         private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowTeachersPanel();
+        }
+
+        private void drankjesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowDrankjePanel();
         }
 
         private void revenueReportToolStripMenuItem_Click(object sender, EventArgs e)
