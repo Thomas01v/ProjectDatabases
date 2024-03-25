@@ -9,20 +9,18 @@ using SomerenModel;
 
 namespace SomerenService
 {
-    public class DrankjeService
-    {
+    public class DrankjeService {
         private DrankjeDao drankjedb;
 
-        public DrankjeService()
-        {
+        public DrankjeService() {
             drankjedb = new DrankjeDao();
         }
 
-        public List<Drankje> GetDrankjes()
-        {
+        public List<Drankje> GetDrankjes() {
             List<Drankje> drankjes = drankjedb.GetAllDrankje();
             return drankjes;
         }
+
 
         public string VoorraadStatus(Drankje drankje)
         {
@@ -45,9 +43,13 @@ namespace SomerenService
             drankjedb.AddDrankje(drankje);
         }
 
-        public void ChangeDrankje(Drankje drankje)
-        {
-            drankjedb.ChangeDrankje(drankje);
+        public Drankje getByID(int dranknummer) {
+            return drankjedb.getByID(dranknummer);
+        }
+
+        public void updateDrankje(Drankje drankje) { 
+            drankjedb.updateDrankje(drankje);
+
         }
     }
 }
