@@ -292,10 +292,12 @@ namespace SomerenUI {
         {
             string naam = naamTb.Text;
             decimal prijs = decimal.Parse(prijsTb.Text);
+            int inkoop = int.Parse(inkoopTb.Text);
             double btw = double.Parse(btwTb.Text);
+            decimal inkoopPrijs = decimal.Parse(inkoopPrijsTb.Text);
             int voorraad = int.Parse(stockTb.Text);
 
-            Drankje drankje = new Drankje() {dranknaam = naam, verkoopprijs = prijs, btw = btw, voorraad = voorraad};
+            Drankje drankje = new Drankje() {dranknaam = naam, inkoop = inkoop, verkoopprijs = prijs, btw = btw, aankoopprijs = inkoopPrijs, voorraad = voorraad};
             DrankjeService drankjeService = new DrankjeService();
             drankjeService.AddDrankje(drankje);
         }
@@ -311,8 +313,10 @@ namespace SomerenUI {
             {
                 Drankje drankje = (Drankje)O;
                 drankje.dranknaam = naamTb.Text;
+                drankje.inkoop = int.Parse(inkoopTb.Text);
                 drankje.verkoopprijs = decimal.Parse(prijsTb.Text);
                 drankje.btw = double.Parse(btwTb.Text);
+                drankje.aankoopprijs = decimal.Parse(inkoopPrijsTb.Text);
                 drankje.voorraad = int.Parse(stockTb.Text);
 
                 DrankjeService drankjeService = new DrankjeService();
@@ -339,8 +343,10 @@ namespace SomerenUI {
             {
                 Drankje drankje = (Drankje)O;
                 naamTb.Text = drankje.dranknaam;
+                inkoopTb.Text = $"{drankje.inkoop}";
                 prijsTb.Text = $"{drankje.verkoopprijs:F2}";
                 btwTb.Text = $"{drankje.btw:F0}";
+                inkoopPrijsTb.Text = $"{drankje.aankoopprijs:F2}";
                 stockTb.Text = $"{drankje.voorraad}";
             }
 

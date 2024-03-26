@@ -36,13 +36,15 @@ namespace SomerenDAL
         public void AddDrankje(Drankje drankje)
         {
             
-            string query = "INSERT INTO drankje VALUES (@dranknaam, @inkoop, @btw, @inkoopprijs, @verkoopprijs)";
-            SqlParameter[] sqlParameters = new SqlParameter[5];
-            sqlParameters[0] = new SqlParameter("@dranknaam", drankje.dranknaam);
-            sqlParameters[1] = new SqlParameter("@inkoop", drankje.inkoop);
-            sqlParameters[2] = new SqlParameter("@btw", drankje.btw);
-            sqlParameters[3] = new SqlParameter("@inkoopprijs", drankje.aankoopprijs);
-            sqlParameters[4] = new SqlParameter("@verkoopprijs", drankje.verkoopprijs);
+            string query = "INSERT INTO drankje VALUES (@dranknaam, @inkoop, @voorraad, @btw, @inkoopprijs, @verkoopprijs)";
+            SqlParameter[] sqlParameters = new SqlParameter[7];
+            sqlParameters[0] = new SqlParameter("@dranknummer", drankje.dranknummer);
+            sqlParameters[1] = new SqlParameter("@dranknaam", drankje.dranknaam);
+            sqlParameters[2] = new SqlParameter("@inkoop", drankje.inkoop);
+            sqlParameters[3] = new SqlParameter("@voorraad", drankje.voorraad);
+            sqlParameters[4] = new SqlParameter("@btw", drankje.btw);
+            sqlParameters[5] = new SqlParameter("@inkoopprijs", drankje.aankoopprijs);
+            sqlParameters[6] = new SqlParameter("@verkoopprijs", drankje.verkoopprijs);
 
             ExecuteEditQuery(query, sqlParameters);
         }
