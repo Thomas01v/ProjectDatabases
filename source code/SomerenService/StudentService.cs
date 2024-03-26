@@ -49,5 +49,9 @@ namespace SomerenService
 
             return student;
         }
+
+        public Student getByID(int studentnummer) {
+            return getStudentFromDataRow(studentdb.getByID(studentnummer).Rows[0]);
+        }
     }
 }

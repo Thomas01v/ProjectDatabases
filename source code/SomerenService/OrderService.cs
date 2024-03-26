@@ -1,6 +1,9 @@
-﻿using SomerenDAL;
+﻿using System;
+using System.Collections.Generic;
+using SomerenDAL;
 using SomerenModel;
-using System;
+using System.Linq;
+using System.Data;
 
 namespace SomerenService {
     public class OrderService {
@@ -26,5 +29,58 @@ namespace SomerenService {
                 return false;
             }
         }
+
+        private Order getOrderFromDataRow(DataRow dr) {
+            DrankjeService drankjeService = new DrankjeService();
+            StudentService studentService = new StudentService();
+            Drankje drankje = drankjeService.getByID(Convert.ToInt32(dr["dranknummer"]));
+            Student student = studentService.getByID(Convert.ToInt32(dr["studentnummer"]));
+
+            Order order = new Order (
+                Convert.ToInt32(dr["ordernummer"]),
+                drankje,
+                student,
+                Convert.ToInt32(dr["aantal"]),
+                Convert.ToDateTime(dr["datum"])
+                );
+            return order;
+        }
+
+        public int amountOfOrders(DateTime firstDate, DateTime lastDate) 
+        {
+
+            List<Order> orders = GetOrdersByDateRange(firstDate, lastDate);
+
+            int totalOrders = orders.Sum(order => order.aantal);
+
+            return totalOrders;
+
+
+
+        }
+
+        public List<Order> GetOrdersByDateRange(DateTime firstDate, DateTime lastDate) {
+            DataTable dataTable = orderdb.GetOrdersByDateRange(firstDate, lastDate);
+            List<Order> orders = new List<Order>();
+
+            foreach (DataRow dr in dataTable.Rows) {
+                orders.Add(getOrderFromDataRow(dr));
+            }
+
+            return orders;
+        }
+
+        public decimal getTheTurnover(DateTime firstDate, DateTime lastDate) 
+        {
+            return Convert.ToDecimal(orderdb.getTheTurnover(firstDate, lastDate).Rows[0]["turnover"]);
+        }
+        public int amountOfConsumers(DateTime firstDate, DateTime lastDate)
+        {
+            return Convert.ToInt32(orderdb.amountOfConsumers(firstDate, lastDate).Rows[0]["amountOfConsumers"]);
+        }
+
+
+
+
     }
 }
