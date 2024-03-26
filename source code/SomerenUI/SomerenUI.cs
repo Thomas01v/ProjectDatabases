@@ -126,7 +126,7 @@ namespace SomerenUI {
             foreach (Drankje drankje in drankjes)
             {
 
-                ListViewItem li = new ListViewItem(new[] { drankje.dranknaam, drankje.type.ToString(), $"� {drankje.verkoopprijs:0.00}", drankje.voorraad.ToString() });
+                ListViewItem li = new ListViewItem(new[] { drankje.dranknaam, drankje.type.ToString(), $"\u20AC {drankje.verkoopprijs:0.00}", drankje.voorraad.ToString() });
 
                 li.Tag = drankje;   // link drankje object to listview item
                 displayView.Items.Add(li);
