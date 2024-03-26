@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using SomerenDAL;
 using System.Drawing.Text;
 
 namespace SomerenUI {
@@ -51,6 +52,16 @@ namespace SomerenUI {
                 MessageBox.Show("Something went wrong while loading the students: " + e.Message);
             }
         }
+        private void ShowRevenueReportPanel()
+        {
+            // hide all other panels
+            hideAllPanels();
+
+            // Show revenue
+
+            pnlRevenueReport.Show();
+        }
+
 
         private void ShowTeachersPanel()
         {
@@ -213,7 +224,7 @@ namespace SomerenUI {
                 int amount = (int)DrinkOrderAmountBox.Value;
 
                 decimal price = drankje.verkoopprijs * amount;
-                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor � {price:0.00}";
+                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor \u20AC {price:0.00}";
             }
 
         }
@@ -432,6 +443,55 @@ namespace SomerenUI {
         {
             SubmitOrder();
         }
+
+        private void revenueReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowRevenueReportPanel();
+        }
+
+        private void onFirstDateValueChange(object sender, EventArgs e)
+        {
+            if (lastDate.Value < firstDate.Value)
+            {
+                lastDate.Value = firstDate.Value;
+            }
+
+            lastDate.MinDate = firstDate.Value;
+        }
+
+        private void onLastDateValueChange(object sender, EventArgs e)
+        {
+            if (lastDate.Value < firstDate.Value)
+            {
+                lastDate.Value = firstDate.Value;
+            }
+        }
+
+        private OrderService orderService = new OrderService();
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DateTime firstDateValue = firstDate.Value.Date;
+            DateTime lastDateValue = lastDate.Value.Date;
+
+            lastDateValue = lastDateValue.AddDays(1).AddSeconds(-1);
+
+            int totalSales = orderService.amountOfOrders(firstDateValue, lastDateValue);
+
+            amountOfSales.Text = "Total Sales: " + totalSales.ToString();
+
+            decimal turnover = orderService.getTheTurnover(firstDateValue, lastDateValue);
+
+            amountOfSales.Text += "\nTurnover: " + turnover.ToString();
+
+            int amountOfConsumers = orderService.amountOfConsumers(firstDateValue, lastDateValue);
+
+            amountOfSales.Text += "\nAmount of customers: " + amountOfConsumers.ToString();
+        }
+
+
+
+    
 
         private void createStudent_Click(object sender, EventArgs e)
         {
