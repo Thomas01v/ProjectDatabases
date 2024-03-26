@@ -33,24 +33,28 @@ namespace SomerenDAL
         }
 
 
-        public Drankje AddDrankje(Drankje drankje)
+        public void AddDrankje(Drankje drankje)
         {
-            SqlConnection dbConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["SomerenDatabase"].ConnectionString);
-            OpenConnection();
-            SqlCommand cmd = new SqlCommand("INSERT INTO drankje VALUES (@dranknaam, @inkoop, @btw, @inkoopprijs, @verkoopprijs);" +
-                "SELECT CAST(scope_identity() As int)", dbConnection);
             
-            cmd.Parameters.AddWithValue("@dranknaam", drankje.dranknaam);
-            cmd.Parameters.AddWithValue("@inkoop", drankje.inkoop);
-            cmd.Parameters.AddWithValue("@btw", drankje.btw);
-            cmd.Parameters.AddWithValue("@inkoopprijs", drankje.aankoopprijs);
-            cmd.Parameters.AddWithValue("@verkoopprijs", drankje.verkoopprijs);
-            
-            int id = (int)cmd.ExecuteScalar();
-            CloseConnection(); 
-            return new Drankje(id, drankje.dranknaam, drankje.inkoop, drankje.btw, drankje.aankoopprijs, drankje.verkoopprijs);
+            string query = "INSERT INTO drankje VALUES (@dranknaam, @inkoop, @btw, @inkoopprijs, @verkoopprijs)";
+            SqlParameter[] sqlParameters = new SqlParameter[5];
+            sqlParameters[0] = new SqlParameter("@dranknaam", drankje.dranknaam);
+            sqlParameters[1] = new SqlParameter("@inkoop", drankje.inkoop);
+            sqlParameters[2] = new SqlParameter("@btw", drankje.btw);
+            sqlParameters[3] = new SqlParameter("@inkoopprijs", drankje.aankoopprijs);
+            sqlParameters[4] = new SqlParameter("@verkoopprijs", drankje.verkoopprijs);
+
+            ExecuteEditQuery(query, sqlParameters);
         }
 
+        public void DeleteDrankje(Drankje drankje)
+        {
+            string query = "DELETE FROM drankje WHERE dranknummer = @dranknummer";
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@dranknummer", drankje.dranknummer);
+
+            ExecuteEditQuery(query, sqlParameters);
+        }
 
         public Drankje getByID(int dranknummer) {
             string query = $"SELECT * FROM drankje WHERE dranknummer=@dranknummer";

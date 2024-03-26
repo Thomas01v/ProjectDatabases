@@ -360,7 +360,7 @@ namespace SomerenUI {
             change.TabIndex = 2;
             change.Text = "Change";
             change.UseVisualStyleBackColor = true;
-            create.Click += changeButton_Click;
+            change.Click += changeButton_Click;
             // 
             // delete
             // 
@@ -370,7 +370,7 @@ namespace SomerenUI {
             delete.TabIndex = 2;
             delete.Text = "Delete";
             delete.UseVisualStyleBackColor = true;
-            create.Click += deleteButton_Click;
+            delete.Click += deleteButton_Click;
             // 
         
             // pnlDrinkOrder

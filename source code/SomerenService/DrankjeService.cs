@@ -42,7 +42,10 @@ namespace SomerenService
         {
             drankjedb.AddDrankje(drankje);
         }
-
+        public void DeleteDrankje(Drankje drankje)
+        {
+            drankjedb.DeleteDrankje(drankje);
+        }
         public Drankje getByID(int dranknummer) {
             return drankjedb.getByID(dranknummer);
         }

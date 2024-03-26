@@ -285,34 +285,52 @@ namespace SomerenUI {
 
         private void createButton_Click(object sender, EventArgs e)
         {
-            string name = naamTb.Text;
+            CreateDrankje();
+        }
+
+        public void CreateDrankje()
+        {
+            string naam = naamTb.Text;
             decimal prijs = decimal.Parse(prijsTb.Text);
             double btw = double.Parse(btwTb.Text);
-            int stock = int.Parse(stockTb.Text);
+            int voorraad = int.Parse(stockTb.Text);
 
-            Drankje drankje = new Drankje(name, prijs, btw, stock);
+            Drankje drankje = new Drankje() {dranknaam = naam, verkoopprijs = prijs, btw = btw, voorraad = voorraad};
             DrankjeService drankjeService = new DrankjeService();
             drankjeService.AddDrankje(drankje);
-            this.Close();
         }
 
         private void changeButton_Click(object sender, EventArgs e)
         {
-            string name = naamTb.Text;
-            decimal prijs = decimal.Parse(prijsTb.Text);
-            double btw = double.Parse(btwTb.Text);
-            int stock = int.Parse(stockTb.Text);
-
-            Drankje drankje = new Drankje(name, prijs, btw, stock);
-            DrankjeService drankjeService = new DrankjeService();
-            drankjeService.UpdateDrankje(drankje);
-            this.Close();
+            UpdateDrankje();
         }
+        public void UpdateDrankje()
+        {
+            Object O = listViewDrankjes.SelectedItems[0].Tag;
+            if (O.GetType() == typeof(Drankje))
+            {
+                Drankje drankje = (Drankje)O;
+                drankje.dranknaam = naamTb.Text;
+                drankje.verkoopprijs = decimal.Parse(prijsTb.Text);
+                drankje.btw = double.Parse(btwTb.Text);
+                drankje.voorraad = int.Parse(stockTb.Text);
+
+                DrankjeService drankjeService = new DrankjeService();
+                drankjeService.updateDrankje(drankje);
+            }
+        }
+        
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            DeleteDrankje();
+        }
+
+        public void DeleteDrankje()
+        {
+            /* TODO exeption gooien als er niks verwijdert wordt*/
             DrankjeService drankjeService = new DrankjeService();
-            drankjeService.DeleteDrankje((Drankje)/* manier zoeken om het juiste drankje te pakken*/);
+            drankjeService.DeleteDrankje((Drankje)listViewDrankjes.SelectedItems[0].Tag);
         }
         private void displayDrankjeInfo()
         {
