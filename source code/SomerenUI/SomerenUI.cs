@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Drawing.Text;
 
 namespace SomerenUI {
     public partial class SomerenUI : Form {
@@ -94,6 +95,7 @@ namespace SomerenUI {
 
         private void DisplayDrankjes(List<Drankje> drankjes, ListView displayView) {
             // clear the listview before filling it
+
             displayView.Clear();
 
             displayView.Columns.Add("dranknaam", 256);
@@ -104,6 +106,7 @@ namespace SomerenUI {
             foreach (Drankje drankje in drankjes) {
 
                 ListViewItem li = new ListViewItem(new[] { drankje.dranknaam, drankje.type.ToString(), $"\u20AC {drankje.verkoopprijs:0.00}", drankje.voorraad.ToString() });
+
                 li.Tag = drankje;   // link drankje object to listview item
                 displayView.Items.Add(li);
             }
@@ -174,7 +177,7 @@ namespace SomerenUI {
                 int amount = (int)DrinkOrderAmountBox.Value;
 
                 decimal price = drankje.verkoopprijs * amount;
-                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor € {price:0.00}";
+                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor ï¿½ {price:0.00}";
             }
 
         }
@@ -275,6 +278,80 @@ namespace SomerenUI {
             ShowDrankjePanel();
         }
 
+        private void drankjesListView_Click(object sender, EventArgs e)
+        {
+            displayDrankjeInfo();
+        }
+
+        private void createButton_Click(object sender, EventArgs e)
+        {
+            CreateDrankje();
+        }
+
+        public void CreateDrankje()
+        {
+            string naam = naamTb.Text;
+            decimal prijs = decimal.Parse(prijsTb.Text);
+            int inkoop = int.Parse(inkoopTb.Text);
+            double btw = double.Parse(btwTb.Text);
+            decimal inkoopPrijs = decimal.Parse(inkoopPrijsTb.Text);
+            int voorraad = int.Parse(stockTb.Text);
+
+            Drankje drankje = new Drankje() {dranknaam = naam, inkoop = inkoop, verkoopprijs = prijs, btw = btw, aankoopprijs = inkoopPrijs, voorraad = voorraad};
+            DrankjeService drankjeService = new DrankjeService();
+            drankjeService.AddDrankje(drankje);
+        }
+
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+            UpdateDrankje();
+        }
+        public void UpdateDrankje()
+        {
+            Object O = listViewDrankjes.SelectedItems[0].Tag;
+            if (O.GetType() == typeof(Drankje))
+            {
+                Drankje drankje = (Drankje)O;
+                drankje.dranknaam = naamTb.Text;
+                drankje.inkoop = int.Parse(inkoopTb.Text);
+                drankje.verkoopprijs = decimal.Parse(prijsTb.Text);
+                drankje.btw = double.Parse(btwTb.Text);
+                drankje.aankoopprijs = decimal.Parse(inkoopPrijsTb.Text);
+                drankje.voorraad = int.Parse(stockTb.Text);
+
+                DrankjeService drankjeService = new DrankjeService();
+                drankjeService.updateDrankje(drankje);
+            }
+        }
+        
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            DeleteDrankje();
+        }
+
+        public void DeleteDrankje()
+        {
+            /* TODO exeption gooien als er niks verwijdert wordt*/
+            DrankjeService drankjeService = new DrankjeService();
+            drankjeService.DeleteDrankje((Drankje)listViewDrankjes.SelectedItems[0].Tag);
+        }
+        private void displayDrankjeInfo()
+        {
+            Object O = listViewDrankjes.SelectedItems[0].Tag;
+            if (O.GetType() == typeof(Drankje))
+            {
+                Drankje drankje = (Drankje)O;
+                naamTb.Text = drankje.dranknaam;
+                inkoopTb.Text = $"{drankje.inkoop}";
+                prijsTb.Text = $"{drankje.verkoopprijs:F2}";
+                btwTb.Text = $"{drankje.btw:F0}";
+                inkoopPrijsTb.Text = $"{drankje.aankoopprijs:F2}";
+                stockTb.Text = $"{drankje.voorraad}";
+            }
+
+        }
+
         private void drinkOrderToolStripMenuItem_Click(object sender, EventArgs e) {
             ShowDrinkOrderPanel();
         }
@@ -294,5 +371,6 @@ namespace SomerenUI {
         private void drinkOrderSubmit_Click(object sender, EventArgs e) {
             SubmitOrder();
         }
+
     }
 }

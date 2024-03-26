@@ -1,6 +1,10 @@
 ﻿namespace SomerenModel {
     public class Drankje 
     {
+        public Drankje()
+        {
+        }
+
         public int dranknummer { get; set; }
 
         public string dranknaam { get; set; }
@@ -28,6 +32,16 @@
                     return "niet alcoholisch";
                 }
             }
+        }
+
+        public Drankje(int dranknummer, string dranknaam, int inkoop, double btw, decimal aankoopprijs, decimal verkoopprijs)
+        {
+            this.dranknummer = dranknummer;
+            this.dranknaam = dranknaam;
+            this.inkoop = inkoop;
+            this.btw = btw;
+            this.aankoopprijs = aankoopprijs;
+            this.verkoopprijs = verkoopprijs;
         }
     }
 }

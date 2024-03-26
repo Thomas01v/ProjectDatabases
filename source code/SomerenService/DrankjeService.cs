@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,38 @@ namespace SomerenService
             return drankjes;
         }
 
+
+        public string VoorraadStatus(Drankje drankje)
+        {
+            double voorraad = drankje.inkoop / drankje.voorraad;
+            switch (voorraad)
+            {
+                case double d when d < 0:
+                    return "stock empty";
+
+                case double d when d <=0.2:
+                    return "stock nearly depleted";
+
+                default:
+                    return "stock sufficient";
+            }
+        }
+
+        public void AddDrankje(Drankje drankje)
+        {
+            drankjedb.AddDrankje(drankje);
+        }
+        public void DeleteDrankje(Drankje drankje)
+        {
+            drankjedb.DeleteDrankje(drankje);
+        }
         public Drankje getByID(int dranknummer) {
             return drankjedb.getByID(dranknummer);
         }
 
         public void updateDrankje(Drankje drankje) { 
             drankjedb.updateDrankje(drankje);
+
         }
     }
 }
