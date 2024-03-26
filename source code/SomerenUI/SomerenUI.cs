@@ -6,12 +6,15 @@ using System;
 using System.Drawing.Text;
 
 namespace SomerenUI {
-    public partial class SomerenUI : Form {
-        public SomerenUI() {
+    public partial class SomerenUI : Form
+    {
+        public SomerenUI()
+        {
             InitializeComponent();
         }
 
-        private void hideAllPanels() {
+        private void hideAllPanels()
+        {
             pnlDashboard.Hide();
             pnlStudents.Hide();
             pnlTeachers.Hide();
@@ -20,7 +23,8 @@ namespace SomerenUI {
             pnlDrinkOrder.Hide();
         }
 
-        private void ShowDashboardPanel() {
+        private void ShowDashboardPanel()
+        {
             // hide all other panels
             hideAllPanels();
 
@@ -28,72 +32,88 @@ namespace SomerenUI {
             pnlDashboard.Show();
         }
 
-        private void ShowStudentsPanel() {
+        private void ShowStudentsPanel()
+        {
             // hide all other panels
             hideAllPanels();
 
             // show students
             pnlStudents.Show();
 
-            try {
+            try
+            {
                 // get and display all students
                 List<Student> students = GetStudents();
                 DisplayStudents(students, listViewStudents);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show("Something went wrong while loading the students: " + e.Message);
             }
         }
 
-        private void ShowTeachersPanel() {
+        private void ShowTeachersPanel()
+        {
             // hide all other panels
             hideAllPanels();
 
             // show teachers
             pnlTeachers.Show();
 
-            try {
+            try
+            {
                 // get and display all teachers
                 List<Teacher> teachers = GetTeachers();
                 DisplayTeachers(teachers);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
             }
         }
 
-        private void ShowDrankjePanel() {
+        private void ShowDrankjePanel()
+        {
             // hide all other panels
             hideAllPanels();
 
             // show drankjes
             pnlDrankjes.Show();
 
-            try {
+            try
+            {
                 // get and display all drankjes
                 List<Drankje> drankjes = GetDrankjes();
                 DisplayDrankjes(drankjes, listViewDrankjes);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show("Something went wrong while loading the drankjes: " + e.Message);
             }
         }
-        private List<Student> GetStudents() {
+        private List<Student> GetStudents()
+        {
             StudentService studentService = new StudentService();
             List<Student> students = studentService.GetStudents();
             return students;
         }
 
-        private List<Teacher> GetTeachers() {
+        private List<Teacher> GetTeachers()
+        {
             TeacherService teacherService = new TeacherService();
             List<Teacher> teachers = teacherService.GetTeachers();
             return teachers;
         }
 
-        private List<Drankje> GetDrankjes() {
+        private List<Drankje> GetDrankjes()
+        {
             DrankjeService drankjeService = new DrankjeService();
             List<Drankje> drankjes = drankjeService.GetDrankjes();
             return drankjes;
         }
 
-        private void DisplayDrankjes(List<Drankje> drankjes, ListView displayView) {
+        private void DisplayDrankjes(List<Drankje> drankjes, ListView displayView)
+        {
             // clear the listview before filling it
 
             displayView.Clear();
@@ -103,7 +123,8 @@ namespace SomerenUI {
             displayView.Columns.Add("verkoopprijs", 128);
             displayView.Columns.Add("voorraad", 128);
 
-            foreach (Drankje drankje in drankjes) {
+            foreach (Drankje drankje in drankjes)
+            {
 
                 ListViewItem li = new ListViewItem(new[] { drankje.dranknaam, drankje.type.ToString(), $"� {drankje.verkoopprijs:0.00}", drankje.voorraad.ToString() });
 
@@ -112,7 +133,8 @@ namespace SomerenUI {
             }
         }
 
-        private void DisplayStudents(List<Student> students, ListView displayView) {
+        private void DisplayStudents(List<Student> students, ListView displayView)
+        {
             // clear the listview before filling it
             displayView.Clear();
 
@@ -121,57 +143,71 @@ namespace SomerenUI {
             displayView.Columns.Add("telefoonnummer", 256);
             displayView.Columns.Add("klas", 128);
 
-            foreach (Student student in students) {
+            foreach (Student student in students)
+            {
                 string telefoonnummer;
-                if (student.telefoonnummer != 0) {
+                if (student.telefoonnummer != 0)
+                {
                     telefoonnummer = $"0{student.telefoonnummer}";
-                }else {
+                }
+                else
+                {
                     telefoonnummer = "-";
                 }
-                ListViewItem li = new ListViewItem(new[] { student.studentnummer.ToString(), student.naam,telefoonnummer, student.klas.ToString() });
+                ListViewItem li = new ListViewItem(new[] { student.studentnummer.ToString(), student.naam, telefoonnummer, student.klas.ToString() });
                 li.Tag = student;   // link student object to listview item
                 displayView.Items.Add(li);
             }
         }
 
-        private void ShowRoomPanel() {
+        private void ShowRoomPanel()
+        {
             // hide all other panels
             hideAllPanels();
 
             // show rooms
             pnlRooms.Show();
 
-            try {
+            try
+            {
                 // get and display all rooms
                 List<Room> rooms = GetRooms();
                 DisplayRooms(rooms);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
             }
         }
 
-        private void ShowDrinkOrderPanel() {
+        private void ShowDrinkOrderPanel()
+        {
             // hide all other panels
             hideAllPanels();
 
             // show drink order dialogue
             pnlDrinkOrder.Show();
 
-            try {
+            try
+            {
                 // get and display all students
                 List<Student> students = GetStudents();
                 DisplayStudents(students, listViewDrinkOrderStudents);
                 // get and display all drinks
                 List<Drankje> drankjes = GetDrankjes();
                 DisplayDrankjes(drankjes, listViewDrinkOrderDrinks);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show("Something went wrong while loading the drink order dialog: " + e.Message);
             }
         }
 
-        private void UpdateOrderPrice() {
+        private void UpdateOrderPrice()
+        {
             //check if required data is selected
-            if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0) {
+            if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0)
+            {
                 Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
                 Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
                 int amount = (int)DrinkOrderAmountBox.Value;
@@ -182,14 +218,17 @@ namespace SomerenUI {
 
         }
 
-        private void SubmitOrder() {
+        private void SubmitOrder()
+        {
             int amount = (int)DrinkOrderAmountBox.Value;
             //check if required data is selected
-            if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0 && amount > 0) {
+            if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0 && amount > 0)
+            {
                 Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
                 Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
 
-                Order newOrder = new Order() {
+                Order newOrder = new Order()
+                {
                     dranknummer = drankje.dranknummer,
                     studentnummer = student.studentnummer,
                     aantal = amount,
@@ -198,19 +237,25 @@ namespace SomerenUI {
 
                 OrderService orderService = new OrderService();
                 string resultmessage;
-                if (orderService.createOrder(newOrder)) {
+                if (orderService.createOrder(newOrder))
+                {
                     resultmessage = $"{drankje.dranknaam} besteld. nieuwe voorraad: {drankje.voorraad - newOrder.aantal}";
 
                     //refresh the display
-                    try {
+                    try
+                    {
                         // get and display all drinks
                         List<Drankje> drankjes = GetDrankjes();
                         DisplayDrankjes(drankjes, listViewDrinkOrderDrinks);
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e)
+                    {
                         MessageBox.Show("Something went wrong while reloading the drink amounts: " + e.Message);
                     }
                     DrinkOrderPriceLabel.Text = "Selecteer een Student, drankje en hoeveelheid";
-                } else {
+                }
+                else
+                {
                     resultmessage = $"niet genoeg {drankje.dranknaam} op voorraad. ({drankje.voorraad})";
                 }
 
@@ -218,20 +263,23 @@ namespace SomerenUI {
             }
         }
 
-        private List<Room> GetRooms() {
+        private List<Room> GetRooms()
+        {
             RoomService roomService = new RoomService();
             List<Room> rooms = roomService.GetRooms();
             return rooms;
         }
 
-        private void DisplayRooms(List<Room> rooms) {
+        private void DisplayRooms(List<Room> rooms)
+        {
             // clear the listview before filling it
             listViewRooms.Clear();
 
             listViewRooms.Columns.Add("kamernummer", 256);
             listViewRooms.Columns.Add("kamersoort", 128);
 
-            foreach (Room room in rooms) {
+            foreach (Room room in rooms)
+            {
                 ListViewItem li = new ListViewItem(new[] { room.kamernummer, room.roomType.ToString() });
                 li.Tag = room;   // link rooms object to listview item
                 listViewRooms.Items.Add(li);
@@ -239,7 +287,8 @@ namespace SomerenUI {
         }
 
 
-        private void DisplayTeachers(List<Teacher> teachers) {
+        private void DisplayTeachers(List<Teacher> teachers)
+        {
             // clear the listview before filling it
             listViewTeachers.Clear();
 
@@ -247,34 +296,41 @@ namespace SomerenUI {
             listViewTeachers.Columns.Add("telefoonnummer", 256);
             listViewTeachers.Columns.Add("leeftijd", 128);
 
-            foreach (Teacher teacher in teachers) {
+            foreach (Teacher teacher in teachers)
+            {
                 int age = (int)(DateTime.Today.Subtract(teacher.geboortedatum).Days / 365.25);
-                ListViewItem li = new ListViewItem(new[] { teacher.naam, $"0{teacher.telefoonnummer}", age.ToString()});
+                ListViewItem li = new ListViewItem(new[] { teacher.naam, $"0{teacher.telefoonnummer}", age.ToString() });
                 li.Tag = teacher;   // link teacher object to listview item
                 listViewTeachers.Items.Add(li);
             }
         }
 
-        private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e) {
+        private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        {
             ShowDashboardPanel();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e) {
+        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
             Application.Exit();
         }
 
-        private void studentsToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void studentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             ShowStudentsPanel();
         }
 
-        private void roomsToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             ShowRoomPanel();
         }
-        private void lecturersToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             ShowTeachersPanel();
         }
 
-        private void drankjesToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void drankjesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             ShowDrankjePanel();
         }
 
@@ -297,7 +353,7 @@ namespace SomerenUI {
             decimal inkoopPrijs = decimal.Parse(inkoopPrijsTb.Text);
             int voorraad = int.Parse(stockTb.Text);
 
-            Drankje drankje = new Drankje() {dranknaam = naam, inkoop = inkoop, verkoopprijs = prijs, btw = btw, aankoopprijs = inkoopPrijs, voorraad = voorraad};
+            Drankje drankje = new Drankje() { dranknaam = naam, inkoop = inkoop, verkoopprijs = prijs, btw = btw, aankoopprijs = inkoopPrijs, voorraad = voorraad };
             DrankjeService drankjeService = new DrankjeService();
             drankjeService.AddDrankje(drankje);
         }
@@ -323,7 +379,7 @@ namespace SomerenUI {
                 drankjeService.updateDrankje(drankje);
             }
         }
-        
+
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -352,25 +408,44 @@ namespace SomerenUI {
 
         }
 
-        private void drinkOrderToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void drinkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             ShowDrinkOrderPanel();
         }
 
-        private void drinkOrderNumericUpDownValueChanged(object sender, EventArgs e) {
+        private void drinkOrderNumericUpDownValueChanged(object sender, EventArgs e)
+        {
             UpdateOrderPrice();
         }
 
-        private void drinkOrderDrinkListViewItem_Click(object sender, EventArgs e) {
+        private void drinkOrderDrinkListViewItem_Click(object sender, EventArgs e)
+        {
             UpdateOrderPrice();
         }
 
-        private void drinkOrderStudentListViewItem_Click(object sender, EventArgs e) {
+        private void drinkOrderStudentListViewItem_Click(object sender, EventArgs e)
+        {
             UpdateOrderPrice();
         }
 
-        private void drinkOrderSubmit_Click(object sender, EventArgs e) {
+        private void drinkOrderSubmit_Click(object sender, EventArgs e)
+        {
             SubmitOrder();
         }
 
+        private void createStudent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void changeStudent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteStudent_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
