@@ -40,7 +40,7 @@ namespace SomerenUI {
                 List<Student> students = GetStudents();
                 DisplayStudents(students, listViewStudents);
             } catch (Exception e) {
-                MessageBox.Show("Something went wrong while loading the students: " + e.Message);
+                MessageBox.Show("Something went wrong while loading the students: " + e.Message + '\n' + e.StackTrace);
             }
         }
 
@@ -189,17 +189,10 @@ namespace SomerenUI {
                 Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
                 Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
 
-                Order newOrder = new Order() {
-                    dranknummer = drankje.dranknummer,
-                    studentnummer = student.studentnummer,
-                    aantal = amount,
-                    datum = DateTime.Now
-                };
-
                 OrderService orderService = new OrderService();
                 string resultmessage;
-                if (orderService.createOrder(newOrder)) {
-                    resultmessage = $"{drankje.dranknaam} besteld. nieuwe voorraad: {drankje.voorraad - newOrder.aantal}";
+                if (orderService.createOrder(drankje, student, amount)) {
+                    resultmessage = $"{drankje.dranknaam} besteld.";
 
                     //refresh the display
                     try {
@@ -297,7 +290,7 @@ namespace SomerenUI {
             decimal inkoopPrijs = decimal.Parse(inkoopPrijsTb.Text);
             int voorraad = int.Parse(stockTb.Text);
 
-            Drankje drankje = new Drankje() {dranknaam = naam, inkoop = inkoop, verkoopprijs = prijs, btw = btw, aankoopprijs = inkoopPrijs, voorraad = voorraad};
+            Drankje drankje = new Drankje(-1, naam, inkoop, voorraad, btw, inkoopPrijs, prijs);
             DrankjeService drankjeService = new DrankjeService();
             drankjeService.AddDrankje(drankje);
         }
@@ -311,17 +304,23 @@ namespace SomerenUI {
             Object O = listViewDrankjes.SelectedItems[0].Tag;
             if (O.GetType() == typeof(Drankje))
             {
-                Drankje drankje = (Drankje)O;
-                drankje.dranknaam = naamTb.Text;
-                drankje.inkoop = int.Parse(inkoopTb.Text);
-                drankje.verkoopprijs = decimal.Parse(prijsTb.Text);
-                drankje.btw = double.Parse(btwTb.Text);
-                drankje.aankoopprijs = decimal.Parse(inkoopPrijsTb.Text);
-                drankje.voorraad = int.Parse(stockTb.Text);
+                int dranknummer = ((Drankje)O).dranknummer;
+
+                Drankje drankje = new Drankje(
+                dranknummer,
+                naamTb.Text,
+                int.Parse(inkoopTb.Text),
+                int.Parse(stockTb.Text),
+                double.Parse(btwTb.Text),
+                decimal.Parse(inkoopPrijsTb.Text),
+                decimal.Parse(prijsTb.Text)
+                );
 
                 DrankjeService drankjeService = new DrankjeService();
                 drankjeService.updateDrankje(drankje);
             }
+
+            
         }
         
 

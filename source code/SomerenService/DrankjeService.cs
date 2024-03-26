@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,13 @@ namespace SomerenService
         }
 
         public List<Drankje> GetDrankjes() {
-            List<Drankje> drankjes = drankjedb.GetAllDrankje();
+            List<Drankje> drankjes = new List<Drankje>();
+            DataTable dataTable = drankjedb.GetAllDrankje();
+
+            foreach (DataRow dr in dataTable.Rows) {
+                Drankje drankje = DrankjeFromDataRow(dr);
+                drankjes.Add(drankje);
+            }
             return drankjes;
         }
 
@@ -46,12 +54,28 @@ namespace SomerenService
         {
             drankjedb.DeleteDrankje(drankje);
         }
+
         public Drankje getByID(int dranknummer) {
-            return drankjedb.getByID(dranknummer);
+            return DrankjeFromDataRow(drankjedb.getByID(dranknummer).Rows[0]);
         }
 
         public void updateDrankje(Drankje drankje) { 
             drankjedb.updateDrankje(drankje);
+
+        }
+
+
+        private Drankje DrankjeFromDataRow(DataRow dr) {
+            Drankje drankje = new Drankje(
+                (int)dr["dranknummer"],
+                dr["dranknaam"].ToString(),
+                (int)dr["inkoop"],
+                (int)dr["voorraad"],
+                Convert.ToDouble(dr["btw"]),
+                Convert.ToDecimal(dr["inkoopprijs"]),
+                Convert.ToDecimal(dr["verkoopprijs"])
+            );
+            return drankje;
 
         }
     }

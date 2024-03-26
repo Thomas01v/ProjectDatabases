@@ -4,12 +4,24 @@ namespace SomerenModel
 {
     public class Student
     {
-        public int studentnummer { get; set; }    
-        public string voornaam { get; set; }
-        public string achternaam { get; set; }
+        public int studentnummer { get; init; }    
+        public string voornaam { get; init; }
+        public string achternaam { get; init; }
         public string naam { get => voornaam + " " + achternaam; }
         public int telefoonnummer { get; set; } 
-        public string klas { get; set; }
-        public string kamernummer { get; set; }
+        public string klas { get; init; }
+        public Room room { get; init; }
+
+        public Student(int studentnummer, string voornaam, string achternaam, string klas, Room room) {
+            this.studentnummer = studentnummer;
+            this.voornaam = voornaam;
+            this.achternaam = achternaam;
+            this.klas = klas;
+            this.room = room;
+        }
+
+        public Student(int studentnummer, string voornaam, string achternaam, int telefoonnummer, string klas, Room room) : this(studentnummer, voornaam, achternaam, klas, room) {
+            this.telefoonnummer = telefoonnummer;
+        }
     }
 }

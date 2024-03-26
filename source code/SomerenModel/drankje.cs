@@ -1,23 +1,20 @@
 ﻿namespace SomerenModel {
     public class Drankje 
     {
-        public Drankje()
-        {
-        }
 
-        public int dranknummer { get; set; }
+        public int dranknummer { get; init; }
 
-        public string dranknaam { get; set; }
+        public string dranknaam { get; init; }
 
-        public int inkoop {  get; set; }
+        public int inkoop {  get; init; }
 
-        public int voorraad { get; set; }
+        public int voorraad { get; init; }
 
-        public double btw { get; set; }
+        public double btw { get; init; }
 
-        public decimal aankoopprijs { get; set; }
+        public decimal aankoopprijs { get; init; }
 
-        public decimal verkoopprijs { get; set; }
+        public decimal verkoopprijs { get; init; }
 
         public string type 
         {
@@ -34,11 +31,12 @@
             }
         }
 
-        public Drankje(int dranknummer, string dranknaam, int inkoop, double btw, decimal aankoopprijs, decimal verkoopprijs)
+        public Drankje(int dranknummer, string dranknaam, int inkoop, int voorraad, double btw, decimal aankoopprijs, decimal verkoopprijs)
         {
             this.dranknummer = dranknummer;
             this.dranknaam = dranknaam;
             this.inkoop = inkoop;
+            this.voorraad = voorraad;
             this.btw = btw;
             this.aankoopprijs = aankoopprijs;
             this.verkoopprijs = verkoopprijs;

@@ -1,35 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SomerenModel;
-using System.Data.Common;
-using System.Configuration;
 
 namespace SomerenDAL
 {
     public class DrankjeDao : BaseDao
     {
-        public List<Drankje> GetAllDrankje()
+        public DataTable GetAllDrankje()
         {
             string query = "SELECT * FROM drankje";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-        }
-
-        private List<Drankje> ReadTables(DataTable dataTable)
-        {
-            List<Drankje> drankjes = new List<Drankje>();
-
-            foreach (DataRow dr in dataTable.Rows)
-            {
-                Drankje drankje = DrankjeFromDataRow(dr);
-                drankjes.Add(drankje);
-            }
-            return drankjes;
+            return ExecuteSelectQuery(query, sqlParameters);
         }
 
 
@@ -54,17 +35,14 @@ namespace SomerenDAL
             string query = "DELETE FROM drankje WHERE dranknummer = @dranknummer";
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@dranknummer", drankje.dranknummer);
-
             ExecuteEditQuery(query, sqlParameters);
         }
 
-        public Drankje getByID(int dranknummer) {
+        public DataTable getByID(int dranknummer) {
             string query = $"SELECT * FROM drankje WHERE dranknummer=@dranknummer";
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@dranknummer", dranknummer);
-            DataTable data = ExecuteSelectQuery(query, sqlParameters);
-            DataRow dr = data.Rows[0];
-            return DrankjeFromDataRow(dr);
+            return ExecuteSelectQuery(query, sqlParameters);
         }
 
         public Drankje updateDrankje(Drankje drankje) {
@@ -84,18 +62,5 @@ namespace SomerenDAL
             return drankje;
         }
 
-        private Drankje DrankjeFromDataRow(DataRow dr) {
-            Drankje drankje = new Drankje() {
-                dranknummer = (int)dr["dranknummer"],
-                dranknaam = dr["dranknaam"].ToString(),
-                inkoop = (int)dr["inkoop"],
-                voorraad = (int)dr["voorraad"],
-                btw = Convert.ToDouble(dr["btw"]),
-                aankoopprijs = Convert.ToDecimal(dr["inkoopprijs"]),
-                verkoopprijs = Convert.ToDecimal(dr["verkoopprijs"])
-            };
-            return drankje;
-
-        }
     }
 }
