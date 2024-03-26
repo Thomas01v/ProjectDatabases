@@ -1,5 +1,8 @@
-﻿using SomerenDAL;
+﻿using System;
+using System.Collections.Generic;
+using SomerenDAL;
 using SomerenModel;
+using System.Linq;
 
 namespace SomerenService {
     public class OrderService {
@@ -19,5 +22,41 @@ namespace SomerenService {
                 return false;
             }
         }
+
+        public int amountOfOrders(DateTime firstDate, DateTime lastDate) 
+        {
+
+            List<Order> orders = orderdb.GetOrdersByDateRange(firstDate, lastDate);
+
+            int totalOrders = orders.Sum(order => order.aantal);
+
+            return totalOrders;
+
+
+
+        }
+
+        public decimal getTheTurnover(DateTime firstDate, DateTime lastDate) 
+        {
+
+            
+
+            return orderdb.getTheTurnover(firstDate, lastDate);
+        
+        
+        }
+        public int amountOfConsumers(DateTime firstDate, DateTime lastDate)
+        {
+
+
+
+            return orderdb.amountOfConsumers(firstDate, lastDate);
+
+
+        }
+
+
+
+
     }
 }
