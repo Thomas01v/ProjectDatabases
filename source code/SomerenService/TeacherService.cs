@@ -29,6 +29,12 @@ namespace SomerenService
             return teachers;
         }
 
+        public Teacher getById(int docentnummer) {
+            RoomService roomService = new RoomService();
+            List<Room> rooms = roomService.GetRooms();
+            return getTeacherFromDataRow(teacherdb.GetById(docentnummer).Rows[0], rooms);
+        }
+
         private Teacher getTeacherFromDataRow(DataRow dr, List<Room> possiblerooms) {
 
             RoomService roomService = new RoomService();
@@ -43,6 +49,19 @@ namespace SomerenService
                     room
                     );
             return teacher;
+        }
+
+        public List<Teacher> getActiviteitBegeleiders(int activiteitnummer) {
+            List<Teacher> teachers = new List<Teacher>();
+            RoomService roomService = new RoomService();
+
+            DataTable dataTable = teacherdb.getActiviteitBegeleiders(activiteitnummer);
+            List<Room> rooms = roomService.GetRooms();
+
+            foreach (DataRow dr in dataTable.Rows) {
+                teachers.Add(getTeacherFromDataRow(dr, rooms));
+            }
+            return teachers;
         }
     }
 }

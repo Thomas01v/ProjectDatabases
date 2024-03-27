@@ -65,17 +65,18 @@ namespace SomerenUI {
 
         private void ShowTeachersPanel()
         {
+            //TODO WIP
             // hide all other panels
             hideAllPanels();
 
             // show teachers
             pnlTeachers.Show();
-
+            
             try
             {
                 // get and display all teachers
                 List<Teacher> teachers = GetTeachers();
-                DisplayTeachers(teachers);
+                //DisplayTeachers(teachers);
             }
             catch (Exception e)
             {
@@ -167,6 +168,21 @@ namespace SomerenUI {
                 }
                 ListViewItem li = new ListViewItem(new[] { student.studentnummer.ToString(), student.naam, telefoonnummer, student.klas.ToString() });
                 li.Tag = student;   // link student object to listview item
+                displayView.Items.Add(li);
+            }
+        }
+
+        private void DisplayActiviteiten(List<Activiteit> activiteiten, ListView displayView) {
+            // clear the listview before filling it
+            displayView.Clear();
+
+            displayView.Columns.Add("activiteitnaam", 128);
+            displayView.Columns.Add("datum", 64);
+            displayView.Columns.Add("tijd", 64);
+
+            foreach (Activiteit activiteit in activiteiten) {
+                ListViewItem li = new ListViewItem(new[] { activiteit.activiteitnummer.ToString(), activiteit.datumtijd.ToString("dd-MMMM-yyyy"), activiteit.datumtijd.ToString("HH:mm") });
+                li.Tag = activiteit;   // link student object to listview item
                 displayView.Items.Add(li);
             }
         }
@@ -289,21 +305,21 @@ namespace SomerenUI {
         }
 
 
-        private void DisplayTeachers(List<Teacher> teachers)
+        private void DisplayTeachers(List<Teacher> teachers, ListView displayView)
         {
             // clear the listview before filling it
-            listViewTeachers.Clear();
+            displayView.Clear();
 
-            listViewTeachers.Columns.Add("naam", 256);
-            listViewTeachers.Columns.Add("telefoonnummer", 256);
-            listViewTeachers.Columns.Add("leeftijd", 128);
+            displayView.Columns.Add("naam", 256);
+            displayView.Columns.Add("telefoonnummer", 256);
+            displayView.Columns.Add("leeftijd", 128);
 
             foreach (Teacher teacher in teachers)
             {
                 int age = (int)(DateTime.Today.Subtract(teacher.geboortedatum).Days / 365.25);
                 ListViewItem li = new ListViewItem(new[] { teacher.naam, $"0{teacher.telefoonnummer}", age.ToString() });
                 li.Tag = teacher;   // link teacher object to listview item
-                listViewTeachers.Items.Add(li);
+                displayView.Items.Add(li);
             }
         }
 

@@ -53,7 +53,9 @@ namespace SomerenUI {
             pictureBox1 = new System.Windows.Forms.PictureBox();
             label1 = new System.Windows.Forms.Label();
             pnlTeachers = new System.Windows.Forms.Panel();
-            listViewTeachers = new System.Windows.Forms.ListView();
+            listViewTeachersActivities = new System.Windows.Forms.ListView();
+            listViewTeachersSupervisors = new System.Windows.Forms.ListView();
+            listViewTeachersNonSupervisors = new System.Windows.Forms.ListView();
             pnlRooms = new System.Windows.Forms.Panel();
             listViewRooms = new System.Windows.Forms.ListView();
             pnlDrinkOrder = new System.Windows.Forms.Panel();
@@ -92,6 +94,10 @@ namespace SomerenUI {
             lastDate = new System.Windows.Forms.DateTimePicker();
             button1 = new System.Windows.Forms.Button();
             turnoverLabel = new System.Windows.Forms.Label();
+            AddBegeleiderButton = new System.Windows.Forms.Button();
+            RemoveBegeleiderButton = new System .Windows.Forms.Button();
+            BegeleidersLabel = new System.Windows.Forms.Label();
+            NonBegeleidersLabel = new System.Windows.Forms.Label() ;
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -364,22 +370,85 @@ namespace SomerenUI {
             // 
             // pnlTeachers
             // 
-            pnlTeachers.Controls.Add(listViewTeachers);
+            pnlTeachers.Controls.Add(listViewTeachersActivities);
+            pnlTeachers.Controls.Add(listViewTeachersSupervisors);
+            pnlTeachers.Controls.Add(listViewTeachersNonSupervisors);
+            pnlTeachers.Controls.Add(AddBegeleiderButton);
+            pnlTeachers.Controls.Add(RemoveBegeleiderButton);
+            pnlTeachers.Controls.Add(BegeleidersLabel);
+            pnlTeachers.Controls.Add(NonBegeleidersLabel);
             pnlTeachers.Location = new System.Drawing.Point(14, 36);
             pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             pnlTeachers.Name = "pnlTeachers";
             pnlTeachers.Size = new System.Drawing.Size(1072, 621);
             pnlTeachers.TabIndex = 2;
             // 
-            // listViewTeachers
+            // listViewTeachersActivities
             // 
-            listViewTeachers.Location = new System.Drawing.Point(18, 56);
-            listViewTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            listViewTeachers.Name = "listViewTeachers";
-            listViewTeachers.Size = new System.Drawing.Size(875, 408);
-            listViewTeachers.TabIndex = 1;
-            listViewTeachers.UseCompatibleStateImageBehavior = false;
-            listViewTeachers.View = System.Windows.Forms.View.Details;
+            listViewTeachersActivities.Location = new System.Drawing.Point(18, 56);
+            listViewTeachersActivities.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewTeachersActivities.Name = "listViewTeachersActivities";
+            listViewTeachersActivities.Size = new System.Drawing.Size(875, 102);
+            listViewTeachersActivities.TabIndex = 1;
+            listViewTeachersActivities.UseCompatibleStateImageBehavior = false;
+            listViewTeachersActivities.View = System.Windows.Forms.View.Details;
+            listViewTeachersActivities.FullRowSelect = true;
+            // 
+            // listViewTeachersSupervisors
+            // 
+            listViewTeachersSupervisors.Location = new System.Drawing.Point(593, 206);
+            listViewTeachersSupervisors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewTeachersSupervisors.Name = "listViewTeachersSupervisors";
+            listViewTeachersSupervisors.Size = new System.Drawing.Size(300, 204);
+            listViewTeachersSupervisors.TabIndex = 1;
+            listViewTeachersSupervisors.UseCompatibleStateImageBehavior = false;
+            listViewTeachersSupervisors.View = System.Windows.Forms.View.Details;
+            listViewTeachersSupervisors.FullRowSelect = true;
+            // 
+            // listViewTeachersNonSupervisors
+            // 
+            listViewTeachersNonSupervisors.Location = new System.Drawing.Point(18, 206);
+            listViewTeachersNonSupervisors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewTeachersNonSupervisors.Name = "listViewTeachersNonSupervisors";
+            listViewTeachersNonSupervisors.Size = new System.Drawing.Size(300, 204);
+            listViewTeachersNonSupervisors.TabIndex = 1;
+            listViewTeachersNonSupervisors.UseCompatibleStateImageBehavior = false;
+            listViewTeachersNonSupervisors.View = System.Windows.Forms.View.Details;
+            listViewTeachersNonSupervisors.FullRowSelect = true;
+            // 
+            // AddBegeleiderButton
+            // 
+            AddBegeleiderButton.Location = new System.Drawing.Point(18, 424);
+            AddBegeleiderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            AddBegeleiderButton.Name = "AddBegeleiderButton";
+            AddBegeleiderButton.Size = new System.Drawing.Size(224, 24);
+            AddBegeleiderButton.Text = "Voeg begeleider toe";
+            //AddBegeleiderButton.Click += drinkOrderSubmit_Click;
+            // 
+            // RemoveBegeleiderButton
+            // 
+            RemoveBegeleiderButton.Location = new System.Drawing.Point(593, 424);
+            RemoveBegeleiderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            RemoveBegeleiderButton.Name = "RemoveBegeleiderButton";
+            RemoveBegeleiderButton.Size = new System.Drawing.Size(224, 24);
+            RemoveBegeleiderButton.Text = "Haal begeleider weg";
+            //RemoveBegeleiderButton.Click += drinkOrderSubmit_Click;
+            // 
+            // BegeleidersLabel
+            // 
+            BegeleidersLabel.AutoSize = true;
+            BegeleidersLabel.Location = new System.Drawing.Point(593, 172);
+            BegeleidersLabel.Name = "BegeleidersLabel";
+            BegeleidersLabel.Size = new System.Drawing.Size(128, 20);
+            BegeleidersLabel.Text = $"Begeleiders";
+            // 
+            // NonBegeleidersLabel
+            // 
+            NonBegeleidersLabel.AutoSize = true;
+            NonBegeleidersLabel.Location = new System.Drawing.Point(18, 172);
+            NonBegeleidersLabel.Name = "NonBegeleidersLabel";
+            NonBegeleidersLabel.Size = new System.Drawing.Size(128, 20);
+            NonBegeleidersLabel.Text = $"Geen Begeleiders";
             // 
             // pnlRooms
             // 
@@ -770,7 +839,9 @@ namespace SomerenUI {
         private System.Windows.Forms.Panel pnlDrankjes;
         private System.Windows.Forms.Panel pnlRevenueReport;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListView listViewTeachers;
+        private System.Windows.Forms.ListView listViewTeachersActivities;
+        private System.Windows.Forms.ListView listViewTeachersSupervisors;
+        private System.Windows.Forms.ListView listViewTeachersNonSupervisors;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.ListView listRevenueReport;
         private System.Windows.Forms.ListView listViewDrinkOrderStudents;
@@ -812,5 +883,9 @@ namespace SomerenUI {
         private System.Windows.Forms.Label amountOfSales;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label turnoverLabel;
+        private System.Windows.Forms.Button AddBegeleiderButton;
+        private System.Windows.Forms.Button RemoveBegeleiderButton;
+        private System.Windows.Forms.Label BegeleidersLabel;
+        private System.Windows.Forms.Label NonBegeleidersLabel;
     }
 }

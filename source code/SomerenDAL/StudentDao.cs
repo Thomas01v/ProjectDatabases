@@ -18,5 +18,12 @@ namespace SomerenDAL
             sqlParameters[0] = new SqlParameter("@studentnummer", studentnummer);
             return ExecuteSelectQuery(query, sqlParameters);
         }
+
+        /*
+         * TODO voor Thomas
+         */
+        public DataTable getActiviteitDeelnemers() {
+            return new DataTable();
+        }
     }
 }
