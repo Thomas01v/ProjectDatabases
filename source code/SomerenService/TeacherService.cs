@@ -18,15 +18,18 @@ namespace SomerenService
         public List<Teacher> GetTeachers()
         {
             List<Teacher> teachers = new List<Teacher>();
+            RoomService roomService = new RoomService();
+
             DataTable dataTable = teacherdb.GetAllTeachers();
+            List<Room> rooms = roomService.GetRooms();
 
             foreach (DataRow dr in dataTable.Rows) {
-                teachers.Add(getTeacherFromDataRow(dr));
+                teachers.Add(getTeacherFromDataRow(dr, rooms));
             }
             return teachers;
         }
 
-        private Teacher getTeacherFromDataRow(DataRow dr) {
+        private Teacher getTeacherFromDataRow(DataRow dr, List<Room> possiblerooms) {
 
             RoomService roomService = new RoomService();
             Room room = roomService.getRoomById(dr["kamernummer"].ToString());

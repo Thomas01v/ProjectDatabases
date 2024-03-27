@@ -17,18 +17,20 @@ namespace SomerenService
         public List<Student> GetStudents()
         {
             DataTable dataTable = studentdb.GetAllStudents();
+            RoomService roomService = new RoomService();
 
             List<Student> students = new List<Student>();
+            List<Room> rooms = roomService.GetRooms(); 
 
             foreach (DataRow dr in dataTable.Rows) {
 
-                students.Add(getStudentFromDataRow(dr));
+                students.Add(getStudentFromDataRow(dr, rooms));
             }
             
             return students;
         }
 
-        private Student getStudentFromDataRow(DataRow dr) {
+        private Student getStudentFromDataRow(DataRow dr, List<Room> possiblerooms) {
             int Telefoonnummer;
             if (dr.IsNull("telefoonnummer")) {
                 Telefoonnummer = 0;
@@ -36,7 +38,7 @@ namespace SomerenService
                 Telefoonnummer = (int)dr["telefoonnummer"];
             }
             RoomService roomService = new RoomService();
-            Room room = roomService.getRoomById(dr["kamernummer"].ToString());
+            Room room = roomService.getRoomById(dr["kamernummer"].ToString(), possiblerooms);
 
             Student student = new Student(
                 (int)dr["studentnummer"],
@@ -51,7 +53,9 @@ namespace SomerenService
         }
 
         public Student getByID(int studentnummer) {
-            return getStudentFromDataRow(studentdb.getByID(studentnummer).Rows[0]);
+            RoomService roomService = new RoomService();
+            List<Room> rooms = roomService.GetRooms();
+            return getStudentFromDataRow(studentdb.getByID(studentnummer).Rows[0], rooms);
         }
     }
 }

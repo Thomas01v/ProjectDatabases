@@ -35,7 +35,17 @@ namespace SomerenService
             return getRoomFromRow(roomdb.GetRoomById(kamernummer).Rows[0]);
         }
 
-        private RoomType getRoomType(string kamernummer) {
+
+        public Room getRoomById(string kamernummer, List<Room> rooms) {
+            foreach (Room room in rooms) {
+                if (room.kamernummer.Equals(kamernummer)) {
+                    return room;
+                }
+            }
+            return null;
+        }
+
+            private RoomType getRoomType(string kamernummer) {
             DataTable roomResult = roomdb.StudentsInRoom(kamernummer);
 
             if (roomResult.Rows.Count > 0) {
