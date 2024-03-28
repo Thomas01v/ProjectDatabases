@@ -19,6 +19,21 @@ namespace SomerenDAL
             return ExecuteSelectQuery(query, sqlParameters);
         }
 
+
+        public void addBegeleider(int activiteitnummer, int docentnummer) {
+            string query = $"INSERT INTO begeleid VALUES (@activiteitnummer, @docentnummer)";
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@activiteitnummer", activiteitnummer);
+            sqlParameters[1] = new SqlParameter("@docentnummer", docentnummer);
+            ExecuteEditQuery(query, sqlParameters);
+        }
+        public void removeBegeleider(int activiteitnummer, int docentnummer) {
+            string query = $"DELETE FROM begeleid WHERE activiteitnummer = @activiteitnummer AND docentnummer = @docentnummer";
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@activiteitnummer", activiteitnummer);
+            sqlParameters[1] = new SqlParameter("@docentnummer", docentnummer);
+            ExecuteEditQuery(query, sqlParameters);
+        }
         
     }
 }

@@ -23,5 +23,15 @@ namespace SomerenModel
         public Teacher(int docentnummer, string voornaam, string achternaam, int telefoonnummer, DateTime geoboortedatum, Room room) : this(docentnummer, voornaam, achternaam, geoboortedatum, room) {
             this.telefoonnummer = telefoonnummer;
         }
+
+        public override bool Equals(object obj) {
+            if (obj.GetType() != typeof(Teacher))
+            {
+                return false;
+            }
+            Teacher other = (Teacher) obj;
+
+            return this.docentnummer == other.docentnummer;
+        }
     }
 }

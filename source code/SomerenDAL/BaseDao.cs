@@ -19,7 +19,7 @@ namespace SomerenDAL
              
         }
 
-        protected SqlConnection OpenConnection()
+        private SqlConnection OpenConnection()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace SomerenDAL
             return conn;
         }
 
-        protected void CloseConnection()
+        private void CloseConnection()
         {
             conn.Close();
         }

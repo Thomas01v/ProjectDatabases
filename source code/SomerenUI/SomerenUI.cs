@@ -3,8 +3,6 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
-using SomerenDAL;
-using System.Drawing.Text;
 
 namespace SomerenUI {
     public partial class SomerenUI : Form
@@ -12,6 +10,8 @@ namespace SomerenUI {
         public SomerenUI()
         {
             InitializeComponent();
+            hideAllPanels();
+            pnlDashboard.Show();
         }
 
         private void hideAllPanels()
@@ -22,6 +22,7 @@ namespace SomerenUI {
             pnlRooms.Hide();
             pnlDrankjes.Hide();
             pnlDrinkOrder.Hide();
+            pnlRevenueReport.Hide();
         }
 
         private void ShowDashboardPanel()
@@ -65,7 +66,6 @@ namespace SomerenUI {
 
         private void ShowTeachersPanel()
         {
-            //TODO WIP
             // hide all other panels
             hideAllPanels();
 
@@ -74,13 +74,18 @@ namespace SomerenUI {
             
             try
             {
-                // get and display all teachers
-                List<Teacher> teachers = GetTeachers();
-                //DisplayTeachers(teachers);
+                // get and display all activiteiten.
+                List<Activiteit> activiteiten = GetActiviteiten();
+                DisplayActiviteiten(activiteiten, listViewTeachersActivities);
+
+                //clear the two teacher lists (if data was still in them)
+                listViewTeachersSupervisors.Clear();
+                listViewTeachersNonSupervisors.Clear();
+
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+                MessageBox.Show("Something went wrong while loading the activities: " + e.Message + '\n' + e.StackTrace);
             }
         }
 
@@ -108,6 +113,12 @@ namespace SomerenUI {
             StudentService studentService = new StudentService();
             List<Student> students = studentService.GetStudents();
             return students;
+        }
+
+        private List<Activiteit> GetActiviteiten() {
+            ActiviteitService activiteitService = new ActiviteitService();
+            List<Activiteit> activiteiten = activiteitService.GetActiviteiten();
+            return activiteiten;
         }
 
         private List<Teacher> GetTeachers()
@@ -176,12 +187,12 @@ namespace SomerenUI {
             // clear the listview before filling it
             displayView.Clear();
 
-            displayView.Columns.Add("activiteitnaam", 128);
-            displayView.Columns.Add("datum", 64);
-            displayView.Columns.Add("tijd", 64);
+            displayView.Columns.Add("activiteitnaam", 256);
+            displayView.Columns.Add("datum", 128);
+            displayView.Columns.Add("tijd", 128);
 
             foreach (Activiteit activiteit in activiteiten) {
-                ListViewItem li = new ListViewItem(new[] { activiteit.activiteitnummer.ToString(), activiteit.datumtijd.ToString("dd-MMMM-yyyy"), activiteit.datumtijd.ToString("HH:mm") });
+                ListViewItem li = new ListViewItem(new[] { activiteit.activiteitnaam, activiteit.datumtijd.ToString("dd-MMMM-yyyy"), activiteit.datumtijd.ToString("HH:mm") });
                 li.Tag = activiteit;   // link student object to listview item
                 displayView.Items.Add(li);
             }
@@ -432,6 +443,56 @@ namespace SomerenUI {
 
         }
 
+        private void displayTeachersInActivity() {
+            if (listViewTeachersActivities.SelectedItems.Count == 0) {
+                return;
+            }
+            Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
+            //display teachers in this activity
+            DisplayTeachers(activiteit.begeleiders, listViewTeachersSupervisors);
+
+
+            //display teachers NOT in this activity
+            TeacherService teacherService = new TeacherService();
+            List<Teacher> nonBegeleiders = new List<Teacher>();
+
+            List<Teacher> allTeachers = teacherService.GetTeachers();
+
+            foreach( Teacher teacher in allTeachers) {
+                if(!activiteit.begeleiders.Contains(teacher)) {
+                    nonBegeleiders.Add(teacher);
+                }
+            }
+
+            DisplayTeachers(nonBegeleiders, listViewTeachersNonSupervisors);
+        }
+
+        private void addBegeleider() {
+            AddBegeleiderButton.Enabled = false;
+            Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
+            Teacher teacher = (Teacher)listViewTeachersNonSupervisors.SelectedItems[0].Tag;
+
+            ActiviteitService activiteitService = new ActiviteitService();
+            activiteitService.addBegeleider(activiteit, teacher);
+
+            //update the activiteit and reload the display
+            activiteit.begeleiders.Add(teacher);
+            displayTeachersInActivity();
+        }
+
+        private void removeBegeleider() {
+            RemoveBegeleiderButton.Enabled = false;
+            Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
+            Teacher teacher = (Teacher)listViewTeachersSupervisors.SelectedItems[0].Tag;
+
+            ActiviteitService activiteitService = new ActiviteitService();
+            activiteitService.removeBegeleider(activiteit, teacher);
+
+            //update the activiteit and reload the display
+            activiteit.begeleiders.Remove(teacher);
+            displayTeachersInActivity();
+        }
+
         private void drinkOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowDrinkOrderPanel();
@@ -504,6 +565,7 @@ namespace SomerenUI {
 
 
 
+
     
 
         private void createStudent_Click(object sender, EventArgs e)
@@ -519,6 +581,37 @@ namespace SomerenUI {
         private void deleteStudent_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void teacherActiviteit_IndexChanged(object sender, EventArgs e) {
+            displayTeachersInActivity();
+        }
+
+        private void listViewTeachersSupervisors_IndexChanged(object sender, EventArgs e) {
+            if (listViewTeachersActivities.SelectedItems.Count == 0) {
+                RemoveBegeleiderButton.Enabled = false;
+            }else {
+                RemoveBegeleiderButton.Enabled = true;
+            }
+        }
+
+        private void listViewTeachersNonSupervisors_IndexChanged(object sender, EventArgs e) {
+            if (listViewTeachersActivities.SelectedItems.Count == 0) {
+                AddBegeleiderButton.Enabled = false;
+            } else {
+                AddBegeleiderButton.Enabled = true;
+            }
+        }
+
+        private void AddBegeleiderButton_Click(object sender, EventArgs e) {
+            addBegeleider();
+        }
+
+        private void RemoveBegeleiderButton_Click(Object sender, EventArgs e) {
+            Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
+            Teacher teacher = (Teacher)listViewTeachersSupervisors.SelectedItems[0].Tag;
+
+            new DialogWindow($"Weet je zeker dat je {teacher.naam} uit {activiteit.activiteitnaam} wilt halen?", removeBegeleider);
         }
     }
 }

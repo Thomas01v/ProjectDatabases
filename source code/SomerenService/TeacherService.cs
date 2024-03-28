@@ -53,13 +53,11 @@ namespace SomerenService
 
         public List<Teacher> getActiviteitBegeleiders(int activiteitnummer) {
             List<Teacher> teachers = new List<Teacher>();
-            RoomService roomService = new RoomService();
 
             DataTable dataTable = teacherdb.getActiviteitBegeleiders(activiteitnummer);
-            List<Room> rooms = roomService.GetRooms();
 
             foreach (DataRow dr in dataTable.Rows) {
-                teachers.Add(getTeacherFromDataRow(dr, rooms));
+                teachers.Add(getById((int)dr["docentnummer"]));
             }
             return teachers;
         }

@@ -53,6 +53,13 @@ namespace SomerenService
             return getActiviteitFromDataRow(activiteitdb.getByID(activiteitnummer).Rows[0]);
         }
 
-        
+        public void addBegeleider(Activiteit activiteit, Teacher docent) {
+            activiteitdb.addBegeleider(activiteit.activiteitnummer, docent.docentnummer);
+        }
+
+        public void removeBegeleider(Activiteit activiteit, Teacher docent) {
+            activiteitdb.removeBegeleider(activiteit.activiteitnummer, docent.docentnummer);
+        }
+
     }
 }

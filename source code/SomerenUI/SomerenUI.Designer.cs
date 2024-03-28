@@ -393,6 +393,7 @@ namespace SomerenUI {
             listViewTeachersActivities.UseCompatibleStateImageBehavior = false;
             listViewTeachersActivities.View = System.Windows.Forms.View.Details;
             listViewTeachersActivities.FullRowSelect = true;
+            listViewTeachersActivities.SelectedIndexChanged += teacherActiviteit_IndexChanged;
             // 
             // listViewTeachersSupervisors
             // 
@@ -404,6 +405,7 @@ namespace SomerenUI {
             listViewTeachersSupervisors.UseCompatibleStateImageBehavior = false;
             listViewTeachersSupervisors.View = System.Windows.Forms.View.Details;
             listViewTeachersSupervisors.FullRowSelect = true;
+            listViewTeachersSupervisors.SelectedIndexChanged += listViewTeachersSupervisors_IndexChanged;
             // 
             // listViewTeachersNonSupervisors
             // 
@@ -415,6 +417,7 @@ namespace SomerenUI {
             listViewTeachersNonSupervisors.UseCompatibleStateImageBehavior = false;
             listViewTeachersNonSupervisors.View = System.Windows.Forms.View.Details;
             listViewTeachersNonSupervisors.FullRowSelect = true;
+            listViewTeachersNonSupervisors.SelectedIndexChanged += listViewTeachersNonSupervisors_IndexChanged;
             // 
             // AddBegeleiderButton
             // 
@@ -423,7 +426,8 @@ namespace SomerenUI {
             AddBegeleiderButton.Name = "AddBegeleiderButton";
             AddBegeleiderButton.Size = new System.Drawing.Size(224, 24);
             AddBegeleiderButton.Text = "Voeg begeleider toe";
-            //AddBegeleiderButton.Click += drinkOrderSubmit_Click;
+            AddBegeleiderButton.Click += AddBegeleiderButton_Click;
+            AddBegeleiderButton.Enabled = false;
             // 
             // RemoveBegeleiderButton
             // 
@@ -432,7 +436,8 @@ namespace SomerenUI {
             RemoveBegeleiderButton.Name = "RemoveBegeleiderButton";
             RemoveBegeleiderButton.Size = new System.Drawing.Size(224, 24);
             RemoveBegeleiderButton.Text = "Haal begeleider weg";
-            //RemoveBegeleiderButton.Click += drinkOrderSubmit_Click;
+            RemoveBegeleiderButton.Click += RemoveBegeleiderButton_Click;
+            RemoveBegeleiderButton.Enabled = false;
             // 
             // BegeleidersLabel
             // 
