@@ -7,6 +7,8 @@ using System;
 namespace SomerenUI {
     public partial class SomerenUI : Form
     {
+        string drinkOrderDefaultMessage = "Selecteer een Student, drankje en hoeveelheid";
+
         public SomerenUI()
         {
             InitializeComponent();
@@ -243,21 +245,6 @@ namespace SomerenUI {
 
         private void UpdateOrderPrice()
         {
-            //check if required data is selected
-            if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0)
-            {
-                Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
-                Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
-                int amount = (int)DrinkOrderAmountBox.Value;
-
-                decimal price = drankje.verkoopprijs * amount;
-                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor \u20AC {price:0.00}";
-            }
-
-        }
-
-        private void SubmitOrder()
-        {
             int amount = (int)DrinkOrderAmountBox.Value;
             //check if required data is selected
             if (listViewDrinkOrderDrinks.SelectedItems.Count > 0 && listViewDrinkOrderStudents.SelectedItems.Count > 0 && amount > 0)
@@ -265,31 +252,48 @@ namespace SomerenUI {
                 Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
                 Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
 
-                OrderService orderService = new OrderService();
-                string resultmessage;
-                if (orderService.createOrder(drankje, student, amount)) {
-                    resultmessage = $"{drankje.dranknaam} besteld.";
-
-                    //refresh the display
-                    try
-                    {
-                        // get and display all drinks
-                        List<Drankje> drankjes = GetDrankjes();
-                        DisplayDrankjes(drankjes, listViewDrinkOrderDrinks);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Something went wrong while reloading the drink amounts: " + e.Message);
-                    }
-                    DrinkOrderPriceLabel.Text = "Selecteer een Student, drankje en hoeveelheid";
-                }
-                else
-                {
-                    resultmessage = $"niet genoeg {drankje.dranknaam} op voorraad. ({drankje.voorraad})";
-                }
-
-                DrinkOrderResultLabel.Text = resultmessage;
+                decimal price = drankje.verkoopprijs * amount;
+                DrinkOrderPriceLabel.Text = $"Student {student.naam} besteld {amount} {drankje.dranknaam} voor \u20AC {price:0.00}";
+                DrinkOrderSubmitButton.Enabled = true;
+                DrinkOrderAmountBox.Maximum = drankje.voorraad;
+            } else {
+                DrinkOrderSubmitButton.Enabled = false;
+                DrinkOrderPriceLabel.Text = drinkOrderDefaultMessage;
             }
+
+        }
+
+        private void SubmitOrder()
+        {
+            int amount = (int)DrinkOrderAmountBox.Value;
+            Drankje drankje = (Drankje)listViewDrinkOrderDrinks.SelectedItems[0].Tag;
+            Student student = (Student)listViewDrinkOrderStudents.SelectedItems[0].Tag;
+
+            OrderService orderService = new OrderService();
+            string resultmessage;
+            if (orderService.createOrder(drankje, student, amount)) {
+                resultmessage = $"{drankje.dranknaam} besteld.";
+
+                //refresh the display
+                try
+                {
+                    // get and display all drinks
+                    List<Drankje> drankjes = GetDrankjes();
+                    DisplayDrankjes(drankjes, listViewDrinkOrderDrinks);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Something went wrong while reloading the drink amounts: " + e.Message);
+                }
+
+                UpdateOrderPrice();
+            }
+            else
+            {
+                resultmessage = $"niet genoeg {drankje.dranknaam} op voorraad. ({drankje.voorraad})";
+            }
+
+            DrinkOrderResultLabel.Text = resultmessage;
         }
 
         private List<Room> GetRooms()
@@ -469,6 +473,7 @@ namespace SomerenUI {
 
         private void addBegeleider() {
             AddBegeleiderButton.Enabled = false;
+            RemoveBegeleiderButton.Enabled = false;
             Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
             Teacher teacher = (Teacher)listViewTeachersNonSupervisors.SelectedItems[0].Tag;
 
@@ -481,6 +486,7 @@ namespace SomerenUI {
         }
 
         private void removeBegeleider() {
+            AddBegeleiderButton.Enabled = false;
             RemoveBegeleiderButton.Enabled = false;
             Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
             Teacher teacher = (Teacher)listViewTeachersSupervisors.SelectedItems[0].Tag;
@@ -503,12 +509,12 @@ namespace SomerenUI {
             UpdateOrderPrice();
         }
 
-        private void drinkOrderDrinkListViewItem_Click(object sender, EventArgs e)
+        private void drinkOrderDrinkListViewItem_IndexChanged(object sender, EventArgs e)
         {
             UpdateOrderPrice();
         }
 
-        private void drinkOrderStudentListViewItem_Click(object sender, EventArgs e)
+        private void drinkOrderStudentListViewItem_IndexChanged(object sender, EventArgs e)
         {
             UpdateOrderPrice();
         }
@@ -610,8 +616,36 @@ namespace SomerenUI {
         private void RemoveBegeleiderButton_Click(Object sender, EventArgs e) {
             Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
             Teacher teacher = (Teacher)listViewTeachersSupervisors.SelectedItems[0].Tag;
+            string message = $"Weet je zeker dat je {teacher.naam} uit {activiteit.activiteitnaam} wilt halen?";
 
-            new DialogWindow($"Weet je zeker dat je {teacher.naam} uit {activiteit.activiteitnaam} wilt halen?", removeBegeleider);
+            new DialogWindow(message, removeBegeleider);
+        }
+
+        private void ListView_ColumnClick(object sender, ColumnClickEventArgs e) {
+            if (sender.GetType() == typeof(ListView)) {
+                ListView listView = (ListView)sender;
+                ListViewColumnSorter sorter;
+
+                if (listView.ListViewItemSorter != null) {
+                    sorter = (ListViewColumnSorter) listView.ListViewItemSorter;
+                }else {
+                    sorter = new ListViewColumnSorter();
+                    listView.ListViewItemSorter = sorter;
+                }
+
+                if (e.Column == sorter.SortColumn) {
+                    if (sorter.Order == SortOrder.Ascending) {
+                        sorter.Order = SortOrder.Descending;
+                    }else {
+                        sorter.Order = SortOrder.Ascending;
+                    }
+                }else {
+                    sorter.SortColumn = e.Column;
+                    sorter.Order = SortOrder.Ascending;
+                }
+
+                listView.Sort();
+            }
         }
     }
 }

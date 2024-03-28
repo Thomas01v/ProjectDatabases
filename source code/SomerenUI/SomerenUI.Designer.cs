@@ -347,6 +347,7 @@ namespace SomerenUI {
             listViewStudents.UseCompatibleStateImageBehavior = false;
             listViewStudents.View = System.Windows.Forms.View.Details;
             listViewStudents.FullRowSelect = true;
+            listViewStudents.ColumnClick += ListView_ColumnClick;
             // 
             // pictureBox1
             // 
@@ -394,6 +395,7 @@ namespace SomerenUI {
             listViewTeachersActivities.View = System.Windows.Forms.View.Details;
             listViewTeachersActivities.FullRowSelect = true;
             listViewTeachersActivities.SelectedIndexChanged += teacherActiviteit_IndexChanged;
+            listViewTeachersActivities.ColumnClick += ListView_ColumnClick;
             // 
             // listViewTeachersSupervisors
             // 
@@ -406,6 +408,7 @@ namespace SomerenUI {
             listViewTeachersSupervisors.View = System.Windows.Forms.View.Details;
             listViewTeachersSupervisors.FullRowSelect = true;
             listViewTeachersSupervisors.SelectedIndexChanged += listViewTeachersSupervisors_IndexChanged;
+            listViewTeachersSupervisors.ColumnClick += ListView_ColumnClick;
             // 
             // listViewTeachersNonSupervisors
             // 
@@ -418,6 +421,7 @@ namespace SomerenUI {
             listViewTeachersNonSupervisors.View = System.Windows.Forms.View.Details;
             listViewTeachersNonSupervisors.FullRowSelect = true;
             listViewTeachersNonSupervisors.SelectedIndexChanged += listViewTeachersNonSupervisors_IndexChanged;
+            listViewTeachersNonSupervisors.ColumnClick += ListView_ColumnClick;
             // 
             // AddBegeleiderButton
             // 
@@ -473,6 +477,7 @@ namespace SomerenUI {
             listViewRooms.TabIndex = 1;
             listViewRooms.UseCompatibleStateImageBehavior = false;
             listViewRooms.View = System.Windows.Forms.View.Details;
+            listViewRooms.ColumnClick += ListView_ColumnClick;
             // 
             // pnlDrinkOrder
             // 
@@ -499,7 +504,8 @@ namespace SomerenUI {
             listViewDrinkOrderStudents.TabIndex = 1;
             listViewDrinkOrderStudents.UseCompatibleStateImageBehavior = false;
             listViewDrinkOrderStudents.View = System.Windows.Forms.View.Details;
-            listViewDrinkOrderStudents.Click += drinkOrderStudentListViewItem_Click;
+            listViewDrinkOrderStudents.SelectedIndexChanged += drinkOrderStudentListViewItem_IndexChanged;
+            listViewDrinkOrderStudents.ColumnClick += ListView_ColumnClick;
             // 
             // listViewDrinkOrderDrinks
             // 
@@ -511,7 +517,8 @@ namespace SomerenUI {
             listViewDrinkOrderDrinks.TabIndex = 1;
             listViewDrinkOrderDrinks.UseCompatibleStateImageBehavior = false;
             listViewDrinkOrderDrinks.View = System.Windows.Forms.View.Details;
-            listViewDrinkOrderDrinks.Click += drinkOrderDrinkListViewItem_Click;
+            listViewDrinkOrderDrinks.SelectedIndexChanged += drinkOrderDrinkListViewItem_IndexChanged;
+            listViewDrinkOrderDrinks.ColumnClick += ListView_ColumnClick;
             // 
             // DrinkOrderAmountBox
             // 
@@ -529,7 +536,7 @@ namespace SomerenUI {
             DrinkOrderPriceLabel.Name = "DrinkOrderPriceLabel";
             DrinkOrderPriceLabel.Size = new System.Drawing.Size(327, 21);
             DrinkOrderPriceLabel.TabIndex = 0;
-            DrinkOrderPriceLabel.Text = "Selecteer een Student, drankje en hoeveelheid";
+            DrinkOrderPriceLabel.Text = drinkOrderDefaultMessage;
             // 
             // DrinkOrderSubmitButton
             // 
@@ -541,6 +548,7 @@ namespace SomerenUI {
             DrinkOrderSubmitButton.TabIndex = 4;
             DrinkOrderSubmitButton.Text = "submit order";
             DrinkOrderSubmitButton.Click += drinkOrderSubmit_Click;
+            DrinkOrderSubmitButton.Enabled = false;
             // 
             // DrinkOrderResultLabel
             // 
@@ -718,6 +726,7 @@ namespace SomerenUI {
             listViewDrankjes.UseCompatibleStateImageBehavior = false;
             listViewDrankjes.View = System.Windows.Forms.View.Details;
             listViewDrankjes.Click += drankjesListView_Click;
+            listViewDrankjes.ColumnClick += ListView_ColumnClick;
             // 
             // pnlRevenueReport
             // 
@@ -743,23 +752,23 @@ namespace SomerenUI {
             // firstDate
             // 
             firstDate.Location = new System.Drawing.Point(45, 67);
-            firstDate.MaxDate = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            firstDate.MaxDate = DateTime.Today;
             firstDate.MinDate = new DateTime(2024, 1, 1, 0, 0, 0, 0);
             firstDate.Name = "firstDate";
             firstDate.Size = new System.Drawing.Size(250, 27);
             firstDate.TabIndex = 2;
-            firstDate.Value = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            firstDate.Value = DateTime.Today;
             firstDate.ValueChanged += onFirstDateValueChange;
             // 
             // lastDate
             // 
             lastDate.Location = new System.Drawing.Point(45, 124);
-            lastDate.MaxDate = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            lastDate.MaxDate = DateTime.Today;
             lastDate.MinDate = new DateTime(2024, 1, 1, 0, 0, 0, 0);
             lastDate.Name = "lastDate";
             lastDate.Size = new System.Drawing.Size(250, 27);
             lastDate.TabIndex = 2;
-            lastDate.Value = new DateTime(2024, 3, 26, 0, 0, 0, 0);
+            lastDate.Value = DateTime.Today;
             lastDate.ValueChanged += onLastDateValueChange;
             // 
             // button1
