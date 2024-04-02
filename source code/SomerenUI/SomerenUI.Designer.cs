@@ -773,7 +773,7 @@ namespace SomerenUI {
             panel.SuspendLayout();
             UIPanels.Add(panel);
 
-            panel.Location = new System.Drawing.Point(14, 64);
+            panel.Location = new System.Drawing.Point(14, 32);
             panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel.Name = "pnl" + title;
             panel.Size = new System.Drawing.Size(1072, 621);
