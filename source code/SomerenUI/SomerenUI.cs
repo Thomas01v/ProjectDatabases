@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SomerenUI {
     public partial class SomerenUI : Form
@@ -411,8 +412,6 @@ namespace SomerenUI {
                 DrankjeService drankjeService = new DrankjeService();
                 drankjeService.updateDrankje(drankje);
             }
-
-            
         }
 
 
@@ -442,6 +441,7 @@ namespace SomerenUI {
             }
 
         }
+
 
         private void displayTeachersInActivity() {
             if (listViewTeachersActivities.SelectedItems.Count == 0) {
@@ -481,7 +481,8 @@ namespace SomerenUI {
             displayTeachersInActivity();
         }
 
-        private void removeBegeleider() {
+        private void removeBegeleider()
+        {
             AddBegeleiderButton.Enabled = false;
             RemoveBegeleiderButton.Enabled = false;
             Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
@@ -493,6 +494,24 @@ namespace SomerenUI {
             //update the activiteit and reload the display
             activiteit.begeleiders.Remove(teacher);
             displayTeachersInActivity();
+        }
+
+        private void displayStudentInfo()
+        {
+            if (listViewStudents.SelectedItems.Count > 0)
+            {
+                Object O = listViewStudents.SelectedItems[0].Tag;
+                if (O.GetType() == typeof(Student))
+                {
+                    Student student = (Student)O;
+                    voornaamTb.Text = student.voornaam;
+                    achternaamTb.Text = student.achternaam;
+                    telefoonnummerTb.Text = $"{student.telefoonnummer}";
+                    klasTb.Text = $"{student.klas}";
+                    kamernummerTb.Text = $"{(student.room.kamernummer)}";
+                }
+            }
+
         }
 
         private void drinkOrderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -565,24 +584,102 @@ namespace SomerenUI {
             amountOfSales.Text += "\nAmount of customers: " + amountOfConsumers.ToString();
         }
 
+        public void CreateStudent()
+        {
+            RoomService roomService = new RoomService();
+            Room room = roomService.getRoomById(kamernummerTb.Text);
 
+            string voornaam = voornaamTb.Text;
+            string achternaam = achternaamTb.Text;
+            int telefoonnummer = int.Parse(telefoonnummerTb.Text);
+            string klas = klasTb.Text;
 
-
-    
+            Student student = new Student(-1, voornaam, achternaam, telefoonnummer, klas, room);
+            StudentService studentService = new StudentService();
+            studentService.AddStudent(student);
+        }
 
         private void createStudent_Click(object sender, EventArgs e)
         {
+            CreateStudent();
+        }
 
+        public void UpdateStudent()
+        {
+            Object O = listViewStudents.SelectedItems[0].Tag;
+            if (O.GetType() == typeof(Student))
+            {
+                RoomService roomService = new RoomService();
+                Room room = roomService.getRoomById(kamernummerTb.Text);
+                int studentnummer = ((Student)O).studentnummer;
+
+                Student student = new Student(
+                studentnummer,
+                voornaamTb.Text,
+                achternaamTb.Text,
+                Convert.ToInt32(telefoonnummerTb.Text),
+                klasTb.Text,
+                (room)
+                ); 
+
+                StudentService studentService = new StudentService();
+                studentService.updateStudent(student);
+            }
         }
 
         private void changeStudent_Click(object sender, EventArgs e)
         {
+            UpdateStudent();
+        }
 
+        public void DeleteStudent()
+        {
+            StudentService studentService = new StudentService();
+            OrderService orderService = new OrderService();
+            bool result = orderService.studentInOrder((Student)listViewStudents.SelectedItems[0].Tag);
+            if (result)
+            {
+                MessageBox.Show("Can not delete student, because student has an order");
+            }
+            else
+            {
+                studentService.DeleteStudent((Student)listViewStudents.SelectedItems[0].Tag);
+            }
         }
 
         private void deleteStudent_Click(object sender, EventArgs e)
         {
+            Student student = (Student)listViewStudents.SelectedItems[0].Tag;
 
+            string message = $"Weet je zeker dat je {student.naam} wilt verwijderen?";
+
+            new DialogWindow(message, DeleteStudent);
+        }
+
+        private void listViewStudent_indexChanged(object sender, EventArgs e)
+        {
+            checkButtonEnableForStudents();
+            displayStudentInfo();
+        }
+
+        private void checkButtonEnableForStudents()
+        {
+            if (listViewStudents.SelectedItems.Count > 0)
+            {
+                changeStudent.Enabled = true;
+                deleteStudent.Enabled = true;
+                createStudent.Enabled = true;
+            }
+            else if (string.IsNullOrEmpty(voornaamTb.Text) || string.IsNullOrEmpty(achternaamTb.Text) || string.IsNullOrEmpty(klasTb.Text) || string.IsNullOrEmpty(kamernummerTb.Text))
+            {
+                createStudent.Enabled = false;
+                changeStudent.Enabled = false;
+            }
+            else
+            {
+                createStudent.Enabled = true;
+                changeStudent.Enabled = true;
+            }
         }
 
         private void teacherActiviteit_IndexChanged(object sender, EventArgs e) {
@@ -642,6 +739,11 @@ namespace SomerenUI {
 
                 listView.Sort();
             }
+        }
+
+        private void valueIsChanged(object sender, EventArgs e)
+        {
+            checkButtonEnableForStudents();
         }
     }
 }

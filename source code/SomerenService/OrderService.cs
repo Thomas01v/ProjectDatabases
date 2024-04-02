@@ -79,7 +79,20 @@ namespace SomerenService {
             return Convert.ToInt32(orderdb.amountOfConsumers(firstDate, lastDate).Rows[0]["amountOfConsumers"]);
         }
 
+        public bool studentInOrder(Student student)
+        {
+            orderdb.studentnummerInOrder(student);
+            DataTable dataTable = orderdb.studentnummerInOrder(student);
 
+            if ((int)dataTable.Rows[0]["nrOfOrders"] >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
     }
