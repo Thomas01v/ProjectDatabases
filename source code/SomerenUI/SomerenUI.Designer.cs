@@ -347,6 +347,7 @@ namespace SomerenUI {
             listViewStudents.UseCompatibleStateImageBehavior = false;
             listViewStudents.View = System.Windows.Forms.View.Details;
             listViewStudents.FullRowSelect = true;
+            listViewStudents.SelectedIndexChanged += listViewStudent_indexChanged;
             // 
             // pictureBox1
             // 

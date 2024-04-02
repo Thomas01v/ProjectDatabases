@@ -57,5 +57,20 @@ namespace SomerenService
             List<Room> rooms = roomService.GetRooms();
             return getStudentFromDataRow(studentdb.getByID(studentnummer).Rows[0], rooms);
         }
+
+        public void AddStudent(Student student)
+        {
+            studentdb.AddStudent(student);
+        }
+
+        public void updateStudent(Student student)
+        {
+            studentdb.updateStudent(student);
+
+        }
+        public void DeleteStudent(Student student)
+        {
+            studentdb.DeleteStudent(student);
+        }
     }
 }
