@@ -72,7 +72,7 @@ namespace SomerenDAL {
 
         public DataTable studentnummerInOrder(Student student)
         {
-            string query = "SELECT COUNT(*) AS nrOfOrders FROM [order] WHERE studentnummer = @studentnummer";
+            string query = "SELECT COUNT(studentnummer) AS nrOfOrders FROM [order] WHERE studentnummer = @studentnummer";
             SqlParameter[] sqlParameter = new SqlParameter[1];
             sqlParameter[0] = new SqlParameter("@studentnummer", student.studentnummer);
 
