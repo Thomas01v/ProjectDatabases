@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace SomerenUI {
     partial class SomerenUI {
@@ -97,7 +98,8 @@ namespace SomerenUI {
             AddBegeleiderButton = new System.Windows.Forms.Button();
             RemoveBegeleiderButton = new System .Windows.Forms.Button();
             BegeleidersLabel = new System.Windows.Forms.Label();
-            NonBegeleidersLabel = new System.Windows.Forms.Label() ;
+            NonBegeleidersLabel = new System.Windows.Forms.Label();
+
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -278,6 +280,7 @@ namespace SomerenUI {
             voornaamTb.Name = "voornaamTb";
             voornaamTb.Size = new System.Drawing.Size(100, 23);
             voornaamTb.TabIndex = 10;
+            voornaamTb.TextChanged += valueIsChanged;
             // 
             // achternaamTb
             // 
@@ -285,6 +288,7 @@ namespace SomerenUI {
             achternaamTb.Name = "achternaamTb";
             achternaamTb.Size = new System.Drawing.Size(100, 23);
             achternaamTb.TabIndex = 11;
+            achternaamTb.TextChanged += valueIsChanged;
             // 
             // telefoonnummerTb
             // 
@@ -299,6 +303,7 @@ namespace SomerenUI {
             klasTb.Name = "klasTb";
             klasTb.Size = new System.Drawing.Size(100, 23);
             klasTb.TabIndex = 13;
+            klasTb.TextChanged += valueIsChanged;
             // 
             // kamernummerTb
             // 
@@ -306,6 +311,7 @@ namespace SomerenUI {
             kamernummerTb.Name = "kamernummerTb";
             kamernummerTb.Size = new System.Drawing.Size(100, 23);
             kamernummerTb.TabIndex = 14;
+            kamernummerTb.TextChanged += valueIsChanged;
             // 
             // createStudent
             // 
@@ -316,6 +322,7 @@ namespace SomerenUI {
             createStudent.Text = "create student";
             createStudent.UseVisualStyleBackColor = true;
             createStudent.Click += createStudent_Click;
+            createStudent.Enabled = false;
             // 
             // changeStudent
             // 
@@ -326,6 +333,7 @@ namespace SomerenUI {
             changeStudent.Text = "change student";
             changeStudent.UseVisualStyleBackColor = true;
             changeStudent.Click += changeStudent_Click;
+            changeStudent.Enabled = false;
             // 
             // deleteStudent
             // 
@@ -336,6 +344,7 @@ namespace SomerenUI {
             deleteStudent.Text = "delete student";
             deleteStudent.UseVisualStyleBackColor = true;
             deleteStudent.Click += deleteStudent_Click;
+            deleteStudent.Enabled = false;
             // 
             // listViewStudents
             // 

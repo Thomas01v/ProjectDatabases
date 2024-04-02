@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SomerenUI {
     public partial class SomerenUI : Form
@@ -638,17 +639,48 @@ namespace SomerenUI {
         public void DeleteStudent()
         {
             StudentService studentService = new StudentService();
-            studentService.DeleteStudent((Student)listViewStudents.SelectedItems[0].Tag);
+            OrderService orderService = new OrderService();
+            bool result = orderService.studentInOrder((Student)listViewStudents.SelectedItems[0].Tag);
+            if (result)
+            {
+                MessageBox.Show("Can not delete student, because student has an order");
+            }
+            else
+            {
+                studentService.DeleteStudent((Student)listViewStudents.SelectedItems[0].Tag);
+            }
         }
 
         private void deleteStudent_Click(object sender, EventArgs e)
         {
-            DeleteStudent();
+            Student student = (Student)listViewStudents.SelectedItems[0].Tag;
+
+            string message = $"Weet je zeker dat je {student.naam} wilt verwijderen?";
+
+            new DialogWindow(message, DeleteStudent);
         }
 
         private void listViewStudent_indexChanged(object sender, EventArgs e)
         {
+            checkButtonEnableForStudents();
             displayStudentInfo();
+        }
+
+        private void checkButtonEnableForStudents()
+        {
+            if (listViewStudents.SelectedItems.Count > 0)
+            {
+                changeStudent.Enabled = true;
+                deleteStudent.Enabled = true;
+            }
+            else if (string.IsNullOrEmpty(voornaamTb.Text) || string.IsNullOrEmpty(achternaamTb.Text) || string.IsNullOrEmpty(klasTb.Text) || string.IsNullOrEmpty(kamernummerTb.Text))
+            {
+                createStudent.Enabled = false;
+            }
+            else
+            {
+                createStudent.Enabled = true;
+            }
         }
 
         private void teacherActiviteit_IndexChanged(object sender, EventArgs e) {
@@ -708,6 +740,11 @@ namespace SomerenUI {
 
                 listView.Sort();
             }
+        }
+
+        private void valueIsChanged(object sender, EventArgs e)
+        {
+            checkButtonEnableForStudents();
         }
     }
 }
