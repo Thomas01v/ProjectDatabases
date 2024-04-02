@@ -348,6 +348,8 @@ namespace SomerenUI {
             listViewStudents.View = System.Windows.Forms.View.Details;
             listViewStudents.FullRowSelect = true;
             listViewStudents.ColumnClick += ListView_ColumnClick;
+            listViewStudents.SelectedIndexChanged += listViewStudent_indexChanged;
+
             // 
             // pictureBox1
             // 

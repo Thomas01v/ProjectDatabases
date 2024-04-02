@@ -415,8 +415,6 @@ namespace SomerenUI {
                 DrankjeService drankjeService = new DrankjeService();
                 drankjeService.updateDrankje(drankje);
             }
-
-            
         }
 
 
@@ -446,6 +444,7 @@ namespace SomerenUI {
             }
 
         }
+
 
         private void displayTeachersInActivity() {
             if (listViewTeachersActivities.SelectedItems.Count == 0) {
@@ -497,6 +496,23 @@ namespace SomerenUI {
             //update the activiteit and reload the display
             activiteit.begeleiders.Remove(teacher);
             displayTeachersInActivity();
+
+        private void displayStudentInfo()
+        {
+            if (listViewStudents.SelectedItems.Count > 0)
+            {
+                Object O = listViewStudents.SelectedItems[0].Tag;
+                if (O.GetType() == typeof(Student))
+                {
+                    Student student = (Student)O;
+                    voornaamTb.Text = student.voornaam;
+                    achternaamTb.Text = student.achternaam;
+                    telefoonnummerTb.Text = $"{student.telefoonnummer}";
+                    klasTb.Text = $"{student.klas}";
+                    kamernummerTb.Text = $"{(student.room.kamernummer)}";
+                }
+            }
+
         }
 
         private void drinkOrderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -569,24 +585,68 @@ namespace SomerenUI {
             amountOfSales.Text += "\nAmount of customers: " + amountOfConsumers.ToString();
         }
 
+        public void CreateStudent()
+        {
+            RoomService roomService = new RoomService();
+            Room room = roomService.getRoomById(kamernummerTb.Text);
 
+            string voornaam = voornaamTb.Text;
+            string achternaam = achternaamTb.Text;
+            int telefoonnummer = int.Parse(telefoonnummerTb.Text);
+            string klas = klasTb.Text;
 
-
-    
+            Student student = new Student(-1, voornaam, achternaam, telefoonnummer, klas, room);
+            StudentService studentService = new StudentService();
+            studentService.AddStudent(student);
+        }
 
         private void createStudent_Click(object sender, EventArgs e)
         {
+            CreateStudent();
+        }
 
+        public void UpdateStudent()
+        {
+            Object O = listViewStudents.SelectedItems[0].Tag;
+            if (O.GetType() == typeof(Student))
+            {
+                RoomService roomService = new RoomService();
+                Room room = roomService.getRoomById(kamernummerTb.Text);
+                int studentnummer = ((Student)O).studentnummer;
+
+                Student student = new Student(
+                studentnummer,
+                voornaamTb.Text,
+                achternaamTb.Text,
+                Convert.ToInt32(telefoonnummerTb.Text),
+                klasTb.Text,
+                (room)
+                ); 
+
+                StudentService studentService = new StudentService();
+                studentService.updateStudent(student);
+            }
         }
 
         private void changeStudent_Click(object sender, EventArgs e)
         {
+            UpdateStudent();
+        }
 
+        public void DeleteStudent()
+        {
+            StudentService studentService = new StudentService();
+            studentService.DeleteStudent((Student)listViewStudents.SelectedItems[0].Tag);
         }
 
         private void deleteStudent_Click(object sender, EventArgs e)
         {
+            DeleteStudent();
+        }
 
+        private void listViewStudent_indexChanged(object sender, EventArgs e)
+        {
+            displayStudentInfo();
         }
 
         private void teacherActiviteit_IndexChanged(object sender, EventArgs e) {
