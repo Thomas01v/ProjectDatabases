@@ -484,7 +484,8 @@ namespace SomerenUI {
             displayTeachersInActivity();
         }
 
-        private void removeBegeleider() {
+        private void removeBegeleider()
+        {
             AddBegeleiderButton.Enabled = false;
             RemoveBegeleiderButton.Enabled = false;
             Activiteit activiteit = (Activiteit)listViewTeachersActivities.SelectedItems[0].Tag;
@@ -496,6 +497,7 @@ namespace SomerenUI {
             //update the activiteit and reload the display
             activiteit.begeleiders.Remove(teacher);
             displayTeachersInActivity();
+        }
 
         private void displayStudentInfo()
         {
