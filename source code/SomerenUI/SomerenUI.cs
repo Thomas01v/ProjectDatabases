@@ -670,16 +670,6 @@ namespace SomerenUI {
                 deleteStudent.Enabled = true;
                 createStudent.Enabled = true;
             }
-            else if (string.IsNullOrEmpty(voornaamTb.Text) || string.IsNullOrEmpty(achternaamTb.Text) || string.IsNullOrEmpty(klasTb.Text) || string.IsNullOrEmpty(kamernummerTb.Text))
-            {
-                createStudent.Enabled = false;
-                changeStudent.Enabled = false;
-            }
-            else
-            {
-                createStudent.Enabled = true;
-                changeStudent.Enabled = true;
-            }
         }
 
         private void teacherActiviteit_IndexChanged(object sender, EventArgs e) {
@@ -743,7 +733,16 @@ namespace SomerenUI {
 
         private void valueIsChanged(object sender, EventArgs e)
         {
-            checkButtonEnableForStudents();
+            if (string.IsNullOrEmpty(voornaamTb.Text) || string.IsNullOrEmpty(achternaamTb.Text) || string.IsNullOrEmpty(klasTb.Text) || string.IsNullOrEmpty(kamernummerTb.Text))
+            {
+                createStudent.Enabled = false;
+                changeStudent.Enabled = false;
+            }
+            else
+            {
+                createStudent.Enabled = true;
+                changeStudent.Enabled = true;
+            }
         }
     }
 }
