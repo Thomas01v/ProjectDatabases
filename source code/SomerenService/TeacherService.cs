@@ -53,7 +53,7 @@ namespace SomerenService
 
         public List<Teacher> getActiviteitBegeleiders(int activiteitnummer) {
             List<Teacher> teachers = new List<Teacher>();
-
+            
             DataTable dataTable = teacherdb.getActiviteitBegeleiders(activiteitnummer);
 
             foreach (DataRow dr in dataTable.Rows) {

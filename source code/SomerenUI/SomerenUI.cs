@@ -18,13 +18,9 @@ namespace SomerenUI {
 
         private void hideAllPanels()
         {
-            pnlDashboard.Hide();
-            pnlStudents.Hide();
-            pnlTeachers.Hide();
-            pnlRooms.Hide();
-            pnlDrankjes.Hide();
-            pnlDrinkOrder.Hide();
-            pnlRevenueReport.Hide();
+            foreach (Panel panel in UIPanels) {
+                panel.Hide();
+            }
         }
 
         private void ShowDashboardPanel()
