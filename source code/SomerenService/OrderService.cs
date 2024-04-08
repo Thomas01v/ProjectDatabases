@@ -55,8 +55,6 @@ namespace SomerenService {
 
             return totalOrders;
 
-
-
         }
 
         public List<Order> GetOrdersByDateRange(DateTime firstDate, DateTime lastDate) {
@@ -70,13 +68,34 @@ namespace SomerenService {
             return orders;
         }
 
-        public decimal getTheTurnover(DateTime firstDate, DateTime lastDate) 
+        public decimal getTheTurnover(DateTime firstDate, DateTime lastDate)
         {
-            return Convert.ToDecimal(orderdb.getTheTurnover(firstDate, lastDate).Rows[0]["turnover"]);
+            DataTable turnoverData = orderdb.getTheTurnover(firstDate, lastDate);
+
+            if (turnoverData.Rows[0].IsNull("turnover"))
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToDecimal(turnoverData.Rows[0]["turnover"]);
+
+
+            }
         }
         public int amountOfConsumers(DateTime firstDate, DateTime lastDate)
         {
-            return Convert.ToInt32(orderdb.amountOfConsumers(firstDate, lastDate).Rows[0]["amountOfConsumers"]);
+
+            DataTable amountOfConsumers = orderdb.amountOfConsumers(firstDate, lastDate);
+
+            if (amountOfConsumers.Rows[0].IsNull("amountOfConsumers"))
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(amountOfConsumers.Rows[0]["amountOfConsumers"]);
+            }
         }
 
         public bool studentInOrder(Student student)
@@ -93,7 +112,8 @@ namespace SomerenService {
                 return false;
             }
         }
-
-
     }
 }
+        
+    
+

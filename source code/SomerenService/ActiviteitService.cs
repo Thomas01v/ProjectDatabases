@@ -48,6 +48,10 @@ namespace SomerenService
 
             return activiteit;
         }
+        public void addStudent(Activiteit activiteit, Student student)
+        {
+            activiteitdb.addStudent(activiteit.activiteitnummer, student.studentnummer);
+        }
 
         public Activiteit getByID(int activiteitnummer) {
             return getActiviteitFromDataRow(activiteitdb.getByID(activiteitnummer).Rows[0]);
@@ -60,6 +64,24 @@ namespace SomerenService
         public void removeBegeleider(Activiteit activiteit, Teacher docent) {
             activiteitdb.removeBegeleider(activiteit.activiteitnummer, docent.docentnummer);
         }
+        public void removeStudent(Activiteit activiteit, Student student)
+        {
+            activiteitdb.removeStudent(activiteit.activiteitnummer, student.studentnummer);
+        }
 
+        public List<Student> getAllStudentsThatDoActivity(int activiteitnummer)
+        {
+            List<Student> students = new List<Student>();
+
+            DataTable studentsTable = activiteitdb.getAllStudentsThatDoActivity(activiteitnummer);
+
+            for (int i = 0; i < studentsTable.Rows.Count; i++)
+            {
+                StudentService needTheNames = new StudentService();
+                students.Add(needTheNames.getByID((int)studentsTable.Rows[i]["studentnummer"]));
+            }
+
+            return students;
+        }
     }
 }

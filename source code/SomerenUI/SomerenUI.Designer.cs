@@ -1,8 +1,9 @@
 using System;
-using System.Collections.Generic;
 
-namespace SomerenUI {
-    partial class SomerenUI {
+namespace SomerenUI
+{
+    partial class SomerenUI
+    {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -12,8 +13,10 @@ namespace SomerenUI {
         ///  Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -39,15 +42,9 @@ namespace SomerenUI {
             revenueReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             drinkOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             drankjesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            UIPanels = new List<System.Windows.Forms.Panel>();
+            pnlDashboard = new System.Windows.Forms.Panel();
             lblDashboard = new System.Windows.Forms.Label();
-            initializePanel(ref pnlDashboard, "Welcome", resources);
-            initializePanel(ref pnlStudents, "Students", resources);
-            initializePanel(ref pnlTeachers, "Lecturers", resources);
-            initializePanel(ref pnlRooms, "Rooms", resources);
-            initializePanel(ref pnlDrinkOrder, "Drink orders", resources);
-            initializePanel(ref pnlDrankjes, "Drankjes", resources);
-            initializePanel(ref pnlRevenueReport, "Revenue Report", resources);
+            pnlStudents = new System.Windows.Forms.Panel();
             kamernummer = new System.Windows.Forms.Label();
             klas = new System.Windows.Forms.Label();
             telefoonnummer = new System.Windows.Forms.Label();
@@ -57,16 +54,25 @@ namespace SomerenUI {
             changeStudent = new System.Windows.Forms.Button();
             deleteStudent = new System.Windows.Forms.Button();
             listViewStudents = new System.Windows.Forms.ListView();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            label1 = new System.Windows.Forms.Label();
+            pnlTeachers = new System.Windows.Forms.Panel();
             listViewTeachersActivities = new System.Windows.Forms.ListView();
+            listViewWhatActivities = new System.Windows.Forms.ListView();
             listViewTeachersSupervisors = new System.Windows.Forms.ListView();
+            listViewPresentStudents = new System.Windows.Forms.ListView();
+            listViewNonPresentStudents = new System.Windows.Forms.ListView();
             listViewTeachersNonSupervisors = new System.Windows.Forms.ListView();
+            pnlRooms = new System.Windows.Forms.Panel();
             listViewRooms = new System.Windows.Forms.ListView();
+            pnlDrinkOrder = new System.Windows.Forms.Panel();
             listViewDrinkOrderStudents = new System.Windows.Forms.ListView();
             listViewDrinkOrderDrinks = new System.Windows.Forms.ListView();
             DrinkOrderAmountBox = new System.Windows.Forms.NumericUpDown();
             DrinkOrderPriceLabel = new System.Windows.Forms.Label();
             DrinkOrderSubmitButton = new System.Windows.Forms.Button();
             DrinkOrderResultLabel = new System.Windows.Forms.Label();
+            pnlDrankjes = new System.Windows.Forms.Panel();
             naamTb = new System.Windows.Forms.TextBox();
             inkoopTb = new System.Windows.Forms.TextBox();
             prijsTb = new System.Windows.Forms.TextBox();
@@ -89,18 +95,31 @@ namespace SomerenUI {
             klasTb = new System.Windows.Forms.TextBox();
             kamernummerTb = new System.Windows.Forms.TextBox();
             listViewDrankjes = new System.Windows.Forms.ListView();
+            pnlRevenueReport = new System.Windows.Forms.Panel();
+            pnlActivities = new System.Windows.Forms.Panel();
             amountOfSales = new System.Windows.Forms.Label();
             firstDate = new System.Windows.Forms.DateTimePicker();
             lastDate = new System.Windows.Forms.DateTimePicker();
-            button1 = new System.Windows.Forms.Button();
+            getInfoButton = new System.Windows.Forms.Button();
             turnoverLabel = new System.Windows.Forms.Label();
             AddBegeleiderButton = new System.Windows.Forms.Button();
-            RemoveBegeleiderButton = new System .Windows.Forms.Button();
+            AddStudentButton = new System.Windows.Forms.Button();
+            RemoveBegeleiderButton = new System.Windows.Forms.Button();
+            RemoveStudentButton = new System.Windows.Forms.Button();
             BegeleidersLabel = new System.Windows.Forms.Label();
             NonBegeleidersLabel = new System.Windows.Forms.Label();
-
+            MeeDoenLabel = new System.Windows.Forms.Label();
+            NietMeeDoenLabel = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
+            pnlDashboard.SuspendLayout();
+            pnlStudents.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pnlTeachers.SuspendLayout();
+            pnlRooms.SuspendLayout();
+            pnlDrinkOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DrinkOrderAmountBox).BeginInit();
+            pnlRevenueReport.SuspendLayout();
+            pnlActivities.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -153,6 +172,7 @@ namespace SomerenUI {
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
             activitiesToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             activitiesToolStripMenuItem.Text = "Activities";
+            activitiesToolStripMenuItem.Click += ActivitiesToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
@@ -185,11 +205,15 @@ namespace SomerenUI {
             // pnlDashboard
             // 
             pnlDashboard.Controls.Add(lblDashboard);
+            pnlDashboard.Location = new System.Drawing.Point(12, 27);
+            pnlDashboard.Name = "pnlDashboard";
+            pnlDashboard.Size = new System.Drawing.Size(938, 466);
+            pnlDashboard.TabIndex = 1;
             // 
             // lblDashboard
             // 
             lblDashboard.AutoSize = true;
-            lblDashboard.Location = new System.Drawing.Point(13, 64);
+            lblDashboard.Location = new System.Drawing.Point(13, 13);
             lblDashboard.Name = "lblDashboard";
             lblDashboard.Size = new System.Drawing.Size(208, 15);
             lblDashboard.TabIndex = 0;
@@ -211,6 +235,11 @@ namespace SomerenUI {
             pnlStudents.Controls.Add(changeStudent);
             pnlStudents.Controls.Add(deleteStudent);
             pnlStudents.Controls.Add(listViewStudents);
+            pnlStudents.Location = new System.Drawing.Point(12, 27);
+            pnlStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlStudents.Name = "pnlStudents";
+            pnlStudents.Size = new System.Drawing.Size(938, 466);
+            pnlStudents.TabIndex = 2;
             // 
             // kamernummer
             // 
@@ -263,7 +292,6 @@ namespace SomerenUI {
             voornaamTb.Name = "voornaamTb";
             voornaamTb.Size = new System.Drawing.Size(100, 23);
             voornaamTb.TabIndex = 10;
-            voornaamTb.TextChanged += valueIsChanged;
             // 
             // achternaamTb
             // 
@@ -271,7 +299,6 @@ namespace SomerenUI {
             achternaamTb.Name = "achternaamTb";
             achternaamTb.Size = new System.Drawing.Size(100, 23);
             achternaamTb.TabIndex = 11;
-            achternaamTb.TextChanged += valueIsChanged;
             // 
             // telefoonnummerTb
             // 
@@ -286,7 +313,6 @@ namespace SomerenUI {
             klasTb.Name = "klasTb";
             klasTb.Size = new System.Drawing.Size(100, 23);
             klasTb.TabIndex = 13;
-            klasTb.TextChanged += valueIsChanged;
             // 
             // kamernummerTb
             // 
@@ -294,7 +320,6 @@ namespace SomerenUI {
             kamernummerTb.Name = "kamernummerTb";
             kamernummerTb.Size = new System.Drawing.Size(100, 23);
             kamernummerTb.TabIndex = 14;
-            kamernummerTb.TextChanged += valueIsChanged;
             // 
             // createStudent
             // 
@@ -305,7 +330,6 @@ namespace SomerenUI {
             createStudent.Text = "create student";
             createStudent.UseVisualStyleBackColor = true;
             createStudent.Click += createStudent_Click;
-            createStudent.Enabled = false;
             // 
             // changeStudent
             // 
@@ -316,7 +340,6 @@ namespace SomerenUI {
             changeStudent.Text = "change student";
             changeStudent.UseVisualStyleBackColor = true;
             changeStudent.Click += changeStudent_Click;
-            changeStudent.Enabled = false;
             // 
             // deleteStudent
             // 
@@ -327,7 +350,6 @@ namespace SomerenUI {
             deleteStudent.Text = "delete student";
             deleteStudent.UseVisualStyleBackColor = true;
             deleteStudent.Click += deleteStudent_Click;
-            deleteStudent.Enabled = false;
             // 
             // listViewStudents
             // 
@@ -340,8 +362,26 @@ namespace SomerenUI {
             listViewStudents.View = System.Windows.Forms.View.Details;
             listViewStudents.FullRowSelect = true;
             listViewStudents.ColumnClick += ListView_ColumnClick;
-            listViewStudents.SelectedIndexChanged += listViewStudent_indexChanged;
-
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new System.Drawing.Point(805, 0);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(130, 123);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Location = new System.Drawing.Point(15, 9);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(107, 32);
+            label1.TabIndex = 0;
+            label1.Text = "Students";
             // 
             // pnlTeachers
             // 
@@ -352,6 +392,11 @@ namespace SomerenUI {
             pnlTeachers.Controls.Add(RemoveBegeleiderButton);
             pnlTeachers.Controls.Add(BegeleidersLabel);
             pnlTeachers.Controls.Add(NonBegeleidersLabel);
+            pnlTeachers.Location = new System.Drawing.Point(14, 36);
+            pnlTeachers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlTeachers.Name = "pnlTeachers";
+            pnlTeachers.Size = new System.Drawing.Size(1072, 621);
+            pnlTeachers.TabIndex = 2;
             // 
             // listViewTeachersActivities
             // 
@@ -366,6 +411,19 @@ namespace SomerenUI {
             listViewTeachersActivities.SelectedIndexChanged += teacherActiviteit_IndexChanged;
             listViewTeachersActivities.ColumnClick += ListView_ColumnClick;
             // 
+            // listViewWhatActivities
+            // 
+            listViewWhatActivities.Location = new System.Drawing.Point(18, 56);
+            listViewWhatActivities.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewWhatActivities.Name = "listViewWhatActivities";
+            listViewWhatActivities.Size = new System.Drawing.Size(875, 102);
+            listViewWhatActivities.TabIndex = 1;
+            listViewWhatActivities.UseCompatibleStateImageBehavior = false;
+            listViewWhatActivities.View = System.Windows.Forms.View.Details;
+            listViewWhatActivities.FullRowSelect = true;
+            listViewWhatActivities.SelectedIndexChanged += listViewWhatActivities_IndexChanged;
+            listViewWhatActivities.ColumnClick += ListView_ColumnClick;
+            // 
             // listViewTeachersSupervisors
             // 
             listViewTeachersSupervisors.Location = new System.Drawing.Point(593, 206);
@@ -378,6 +436,32 @@ namespace SomerenUI {
             listViewTeachersSupervisors.FullRowSelect = true;
             listViewTeachersSupervisors.SelectedIndexChanged += listViewTeachersSupervisors_IndexChanged;
             listViewTeachersSupervisors.ColumnClick += ListView_ColumnClick;
+            // 
+            // listViewPresentStudent
+            // 
+            listViewPresentStudents.Location = new System.Drawing.Point(18, 206);
+            listViewPresentStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewPresentStudents.Name = "listViewPresentStudents";
+            listViewPresentStudents.Size = new System.Drawing.Size(300, 204);
+            listViewPresentStudents.TabIndex = 1;
+            listViewPresentStudents.UseCompatibleStateImageBehavior = false;
+            listViewPresentStudents.View = System.Windows.Forms.View.Details;
+            listViewPresentStudents.FullRowSelect = true;
+            listViewPresentStudents.SelectedIndexChanged += listViewPresentStudents_IndexChanged;
+            listViewPresentStudents.ColumnClick += ListView_ColumnClick;
+            // 
+            // listViewNonPresentStudents
+            // 
+            listViewNonPresentStudents.Location = new System.Drawing.Point(593, 206);
+            listViewNonPresentStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewNonPresentStudents.Name = "listViewPresentStudents";
+            listViewNonPresentStudents.Size = new System.Drawing.Size(300, 204);
+            listViewNonPresentStudents.TabIndex = 1;
+            listViewNonPresentStudents.UseCompatibleStateImageBehavior = false;
+            listViewNonPresentStudents.View = System.Windows.Forms.View.Details;
+            listViewNonPresentStudents.FullRowSelect = true;
+            listViewNonPresentStudents.SelectedIndexChanged += listViewNonPresentStudents_IndexChanged;
+            listViewNonPresentStudents.ColumnClick += ListView_ColumnClick;
             // 
             // listViewTeachersNonSupervisors
             // 
@@ -412,6 +496,26 @@ namespace SomerenUI {
             RemoveBegeleiderButton.Click += RemoveBegeleiderButton_Click;
             RemoveBegeleiderButton.Enabled = false;
             // 
+            // RemoveStudentButton
+            // 
+            RemoveStudentButton.Location = new System.Drawing.Point(18, 424);
+            RemoveStudentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            RemoveStudentButton.Name = "RemoveStudentButton";
+            RemoveStudentButton.Size = new System.Drawing.Size(224, 24);
+            RemoveStudentButton.Text = "Verwijder student";
+            RemoveStudentButton.Click += RemoveStudentButton_Click;
+            RemoveStudentButton.Enabled = false;
+            ///
+            /// AddStudentButton
+            ///
+            AddStudentButton.Location = new System.Drawing.Point(593, 424);
+            AddStudentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            AddStudentButton.Name = "AddStudentButton";
+            AddStudentButton.Size = new System.Drawing.Size(224, 24);
+            AddStudentButton.Text = "Voeg student toe";
+            AddStudentButton.Click += AddStudentButton_Click;
+            AddStudentButton.Enabled = false;
+            // 
             // BegeleidersLabel
             // 
             BegeleidersLabel.AutoSize = true;
@@ -428,9 +532,30 @@ namespace SomerenUI {
             NonBegeleidersLabel.Size = new System.Drawing.Size(128, 20);
             NonBegeleidersLabel.Text = $"Geen Begeleiders";
             // 
+            // NietMeeDoenLabel
+            // 
+            NietMeeDoenLabel.AutoSize = true;
+            NietMeeDoenLabel.Location = new System.Drawing.Point(593, 172);
+            NietMeeDoenLabel.Name = "NietMeeDoenLabel";
+            NietMeeDoenLabel.Size = new System.Drawing.Size(128, 20);
+            NietMeeDoenLabel.Text = $"Studenten die niet mee doen";
+            // 
+            // MeeDoenLabel
+            // 
+            MeeDoenLabel.AutoSize = true;
+            MeeDoenLabel.Location = new System.Drawing.Point(18, 172);
+            MeeDoenLabel.Name = "MeeDoenLabel";
+            MeeDoenLabel.Size = new System.Drawing.Size(128, 20);
+            MeeDoenLabel.Text = $"Studenten die mee doen";
+            // 
             // pnlRooms
             // 
             pnlRooms.Controls.Add(listViewRooms);
+            pnlRooms.Location = new System.Drawing.Point(14, 36);
+            pnlRooms.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlRooms.Name = "pnlRooms";
+            pnlRooms.Size = new System.Drawing.Size(1072, 621);
+            pnlRooms.TabIndex = 2;
             // 
             // listViewRooms
             // 
@@ -451,6 +576,12 @@ namespace SomerenUI {
             pnlDrinkOrder.Controls.Add(DrinkOrderPriceLabel);
             pnlDrinkOrder.Controls.Add(DrinkOrderSubmitButton);
             pnlDrinkOrder.Controls.Add(DrinkOrderResultLabel);
+            pnlDrinkOrder.Controls.Add(label1);
+            pnlDrinkOrder.Location = new System.Drawing.Point(14, 36);
+            pnlDrinkOrder.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlDrinkOrder.Name = "pnlDrinkOrder";
+            pnlDrinkOrder.Size = new System.Drawing.Size(1072, 621);
+            pnlDrinkOrder.TabIndex = 2;
             // 
             // listViewDrinkOrderStudents
             // 
@@ -535,6 +666,10 @@ namespace SomerenUI {
             pnlDrankjes.Controls.Add(change);
             pnlDrankjes.Controls.Add(delete);
             pnlDrankjes.Controls.Add(listViewDrankjes);
+            pnlDrankjes.Location = new System.Drawing.Point(12, 27);
+            pnlDrankjes.Name = "pnlDrankjes";
+            pnlDrankjes.Size = new System.Drawing.Size(938, 466);
+            pnlDrankjes.TabIndex = 2;
             // 
             // naamTb
             // 
@@ -688,7 +823,27 @@ namespace SomerenUI {
             pnlRevenueReport.Controls.Add(turnoverLabel);
             pnlRevenueReport.Controls.Add(firstDate);
             pnlRevenueReport.Controls.Add(lastDate);
-            pnlRevenueReport.Controls.Add(button1);
+            pnlRevenueReport.Controls.Add(getInfoButton);
+            pnlRevenueReport.Location = new System.Drawing.Point(14, 36);
+            pnlRevenueReport.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlRevenueReport.Name = "pnlRevenueReport";
+            pnlRevenueReport.Size = new System.Drawing.Size(1072, 621);
+            pnlRevenueReport.TabIndex = 2;
+            // 
+            // pnlActivities
+            // 
+            pnlActivities.Controls.Add(listViewWhatActivities);
+            pnlActivities.Controls.Add(listViewPresentStudents);
+            pnlActivities.Controls.Add(listViewNonPresentStudents);
+            pnlActivities.Controls.Add(AddStudentButton);
+            pnlActivities.Controls.Add(MeeDoenLabel);
+            pnlActivities.Controls.Add(NietMeeDoenLabel);
+            pnlActivities.Controls.Add(RemoveStudentButton);
+            pnlActivities.Location = new System.Drawing.Point(14, 36);
+            pnlActivities.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pnlActivities.Name = "pnlActivities";
+            pnlActivities.Size = new System.Drawing.Size(1072, 621);
+            pnlActivities.TabIndex = 2;
             // 
             // amountOfSales
             // 
@@ -720,15 +875,15 @@ namespace SomerenUI {
             lastDate.Value = DateTime.Today;
             lastDate.ValueChanged += onLastDateValueChange;
             // 
-            // button1
+            // Get info button
             // 
-            button1.Location = new System.Drawing.Point(777, 138);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(94, 29);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            getInfoButton.Location = new System.Drawing.Point(350, 65);
+            getInfoButton.Name = "getInfoButton";
+            getInfoButton.Size = new System.Drawing.Size(94, 29);
+            getInfoButton.TabIndex = 2;
+            getInfoButton.Text = "Get info";
+            getInfoButton.UseVisualStyleBackColor = true;
+            getInfoButton.Click += getInfoButton_Click;
             // 
             // turnoverLabel
             // 
@@ -743,8 +898,17 @@ namespace SomerenUI {
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1124, 505);
+            ClientSize = new System.Drawing.Size(962, 505);
             Controls.Add(menuStrip1);
+            Controls.Add(pnlStudents);
+            Controls.Add(pnlTeachers);
+            Controls.Add(pnlRooms);
+            Controls.Add(pnlDrankjes);
+            Controls.Add(pnlDashboard);
+            Controls.Add(pnlDrinkOrder);
+            Controls.Add(pictureBox1);
+            Controls.Add(pnlRevenueReport);
+            Controls.Add(pnlActivities);
             MainMenuStrip = menuStrip1;
             Name = "SomerenUI";
             Text = "SomerenApp";
@@ -754,6 +918,7 @@ namespace SomerenUI {
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
             pnlStudents.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlTeachers.ResumeLayout(false);
             pnlRooms.ResumeLayout(false);
             pnlDrinkOrder.ResumeLayout(false);
@@ -761,48 +926,12 @@ namespace SomerenUI {
             ((System.ComponentModel.ISupportInitialize)DrinkOrderAmountBox).EndInit();
             pnlRevenueReport.ResumeLayout(false);
             pnlRevenueReport.PerformLayout();
+            pnlActivities.ResumeLayout(false);
+            pnlActivities.PerformLayout();
             pnlDrankjes.ResumeLayout(false);
             pnlDrankjes.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
-        }
-
-        private void initializePanel(ref System.Windows.Forms.Panel panel, string title, System.ComponentModel.ComponentResourceManager resources) {
-            //standard panel setyp
-            panel = new System.Windows.Forms.Panel();
-            panel.SuspendLayout();
-            UIPanels.Add(panel);
-
-            panel.Location = new System.Drawing.Point(14, 32);
-            panel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            panel.Name = "pnl" + title;
-            panel.Size = new System.Drawing.Size(1072, 621);
-            panel.TabIndex = UIPanels.Count+1;
-
-            //add the title label
-            System.Windows.Forms.Label titleLabel = new System.Windows.Forms.Label();
-            titleLabel.AutoSize = true;
-            titleLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            titleLabel.Location = new System.Drawing.Point(15, 9);
-            titleLabel.Name = "lbl" + title;
-            titleLabel.Size = new System.Drawing.Size(107, 32);
-            titleLabel.Text = title;
-            panel.Controls.Add(titleLabel);
-
-            //add the image
-            System.Windows.Forms.PictureBox logoImage = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)logoImage).BeginInit();
-            logoImage.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            logoImage.Location = new System.Drawing.Point(924, 9);
-            logoImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            logoImage.Name = "pic" + title;
-            logoImage.Size = new System.Drawing.Size(130, 123);
-            logoImage.TabStop = false;
-            panel.Controls.Add(logoImage);
-
-            //add to the form
-            Controls.Add(panel);
-
         }
 
 
@@ -830,14 +959,20 @@ namespace SomerenUI {
         private System.Windows.Forms.Button DrinkOrderSubmitButton;
         private System.Windows.Forms.Panel pnlDrankjes;
         private System.Windows.Forms.Panel pnlRevenueReport;
+        private System.Windows.Forms.Panel pnlActivities;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewTeachersActivities;
+        private System.Windows.Forms.ListView listViewWhatActivities;
         private System.Windows.Forms.ListView listViewTeachersSupervisors;
+        private System.Windows.Forms.ListView listViewPresentStudents;
+        private System.Windows.Forms.ListView listViewNonPresentStudents;
         private System.Windows.Forms.ListView listViewTeachersNonSupervisors;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.ListView listRevenueReport;
         private System.Windows.Forms.ListView listViewDrinkOrderStudents;
         private System.Windows.Forms.ListView listViewDrinkOrderDrinks;
         private System.Windows.Forms.ListView listViewDrankjes;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listViewStudents;
         private System.Windows.Forms.Label naam;
         private System.Windows.Forms.Label inkoop;
@@ -871,12 +1006,15 @@ namespace SomerenUI {
         private System.Windows.Forms.DateTimePicker firstDate;
         private System.Windows.Forms.DateTimePicker lastDate;
         private System.Windows.Forms.Label amountOfSales;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button getInfoButton;
         private System.Windows.Forms.Label turnoverLabel;
         private System.Windows.Forms.Button AddBegeleiderButton;
+        private System.Windows.Forms.Button AddStudentButton;
         private System.Windows.Forms.Button RemoveBegeleiderButton;
+        private System.Windows.Forms.Button RemoveStudentButton;
         private System.Windows.Forms.Label BegeleidersLabel;
         private System.Windows.Forms.Label NonBegeleidersLabel;
-        private List<System.Windows.Forms.Panel> UIPanels;
+        private System.Windows.Forms.Label NietMeeDoenLabel;
+        private System.Windows.Forms.Label MeeDoenLabel;
     }
 }
