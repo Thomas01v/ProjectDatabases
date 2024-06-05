@@ -44,6 +44,7 @@ namespace SomerenUI {
             initializePanel(ref pnlDashboard, "Welcome", resources);
             initializePanel(ref pnlStudents, "Students", resources);
             initializePanel(ref pnlTeachers, "Lecturers", resources);
+            initializePanel(ref pnlActivities, "Activities", resources);
             initializePanel(ref pnlRooms, "Rooms", resources);
             initializePanel(ref pnlDrinkOrder, "Drink orders", resources);
             initializePanel(ref pnlDrankjes, "Drankjes", resources);
@@ -58,7 +59,10 @@ namespace SomerenUI {
             deleteStudent = new System.Windows.Forms.Button();
             listViewStudents = new System.Windows.Forms.ListView();
             listViewTeachersActivities = new System.Windows.Forms.ListView();
+            listViewWhatActivities = new System.Windows.Forms.ListView();
             listViewTeachersSupervisors = new System.Windows.Forms.ListView();
+            listViewPresentStudents = new System.Windows.Forms.ListView();
+            listViewNonPresentStudents = new System.Windows.Forms.ListView();
             listViewTeachersNonSupervisors = new System.Windows.Forms.ListView();
             listViewRooms = new System.Windows.Forms.ListView();
             listViewDrinkOrderStudents = new System.Windows.Forms.ListView();
@@ -92,13 +96,16 @@ namespace SomerenUI {
             amountOfSales = new System.Windows.Forms.Label();
             firstDate = new System.Windows.Forms.DateTimePicker();
             lastDate = new System.Windows.Forms.DateTimePicker();
-            button1 = new System.Windows.Forms.Button();
+            getInfoButton = new System.Windows.Forms.Button();
             turnoverLabel = new System.Windows.Forms.Label();
             AddBegeleiderButton = new System.Windows.Forms.Button();
+            AddStudentButton = new System.Windows.Forms.Button();
             RemoveBegeleiderButton = new System .Windows.Forms.Button();
+            RemoveStudentButton = new System.Windows.Forms.Button();
             BegeleidersLabel = new System.Windows.Forms.Label();
             NonBegeleidersLabel = new System.Windows.Forms.Label();
-
+            MeeDoenLabel = new System.Windows.Forms.Label();
+            NietMeeDoenLabel = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DrinkOrderAmountBox).BeginInit();
             SuspendLayout();
@@ -153,6 +160,7 @@ namespace SomerenUI {
             activitiesToolStripMenuItem.Name = "activitiesToolStripMenuItem";
             activitiesToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             activitiesToolStripMenuItem.Text = "Activities";
+            activitiesToolStripMenuItem.Click += ActivitiesToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
@@ -366,6 +374,19 @@ namespace SomerenUI {
             listViewTeachersActivities.SelectedIndexChanged += teacherActiviteit_IndexChanged;
             listViewTeachersActivities.ColumnClick += ListView_ColumnClick;
             // 
+            // listViewWhatActivities
+            // 
+            listViewWhatActivities.Location = new System.Drawing.Point(18, 56);
+            listViewWhatActivities.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewWhatActivities.Name = "listViewWhatActivities";
+            listViewWhatActivities.Size = new System.Drawing.Size(875, 102);
+            listViewWhatActivities.TabIndex = 1;
+            listViewWhatActivities.UseCompatibleStateImageBehavior = false;
+            listViewWhatActivities.View = System.Windows.Forms.View.Details;
+            listViewWhatActivities.FullRowSelect = true;
+            listViewWhatActivities.SelectedIndexChanged += listViewWhatActivities_IndexChanged;
+            listViewWhatActivities.ColumnClick += ListView_ColumnClick;
+            // 
             // listViewTeachersSupervisors
             // 
             listViewTeachersSupervisors.Location = new System.Drawing.Point(593, 206);
@@ -378,6 +399,32 @@ namespace SomerenUI {
             listViewTeachersSupervisors.FullRowSelect = true;
             listViewTeachersSupervisors.SelectedIndexChanged += listViewTeachersSupervisors_IndexChanged;
             listViewTeachersSupervisors.ColumnClick += ListView_ColumnClick;
+            // 
+            // listViewPresentStudent
+            // 
+            listViewPresentStudents.Location = new System.Drawing.Point(18, 206);
+            listViewPresentStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewPresentStudents.Name = "listViewPresentStudents";
+            listViewPresentStudents.Size = new System.Drawing.Size(300, 204);
+            listViewPresentStudents.TabIndex = 1;
+            listViewPresentStudents.UseCompatibleStateImageBehavior = false;
+            listViewPresentStudents.View = System.Windows.Forms.View.Details;
+            listViewPresentStudents.FullRowSelect = true;
+            listViewPresentStudents.SelectedIndexChanged += listViewPresentStudents_IndexChanged;
+            listViewPresentStudents.ColumnClick += ListView_ColumnClick;
+            // 
+            // listViewNonPresentStudents
+            // 
+            listViewNonPresentStudents.Location = new System.Drawing.Point(593, 206);
+            listViewNonPresentStudents.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            listViewNonPresentStudents.Name = "listViewPresentStudents";
+            listViewNonPresentStudents.Size = new System.Drawing.Size(300, 204);
+            listViewNonPresentStudents.TabIndex = 1;
+            listViewNonPresentStudents.UseCompatibleStateImageBehavior = false;
+            listViewNonPresentStudents.View = System.Windows.Forms.View.Details;
+            listViewNonPresentStudents.FullRowSelect = true;
+            listViewNonPresentStudents.SelectedIndexChanged += listViewNonPresentStudents_IndexChanged;
+            listViewNonPresentStudents.ColumnClick += ListView_ColumnClick;
             // 
             // listViewTeachersNonSupervisors
             // 
@@ -412,6 +459,26 @@ namespace SomerenUI {
             RemoveBegeleiderButton.Click += RemoveBegeleiderButton_Click;
             RemoveBegeleiderButton.Enabled = false;
             // 
+            // RemoveStudentButton
+            // 
+            RemoveStudentButton.Location = new System.Drawing.Point(18, 424);
+            RemoveStudentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            RemoveStudentButton.Name = "RemoveStudentButton";
+            RemoveStudentButton.Size = new System.Drawing.Size(224, 24);
+            RemoveStudentButton.Text = "Verwijder student";
+            RemoveStudentButton.Click += RemoveStudentButton_Click;
+            RemoveStudentButton.Enabled = false;
+            ///
+            /// AddStudentButton
+            ///
+            AddStudentButton.Location = new System.Drawing.Point(593, 424);
+            AddStudentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            AddStudentButton.Name = "AddStudentButton";
+            AddStudentButton.Size = new System.Drawing.Size(224, 24);
+            AddStudentButton.Text = "Voeg student toe";
+            AddStudentButton.Click += AddStudentButton_Click;
+            AddStudentButton.Enabled = false;
+            // 
             // BegeleidersLabel
             // 
             BegeleidersLabel.AutoSize = true;
@@ -427,6 +494,22 @@ namespace SomerenUI {
             NonBegeleidersLabel.Name = "NonBegeleidersLabel";
             NonBegeleidersLabel.Size = new System.Drawing.Size(128, 20);
             NonBegeleidersLabel.Text = $"Geen Begeleiders";
+            // 
+            // NietMeeDoenLabel
+            // 
+            NietMeeDoenLabel.AutoSize = true;
+            NietMeeDoenLabel.Location = new System.Drawing.Point(593, 172);
+            NietMeeDoenLabel.Name = "NietMeeDoenLabel";
+            NietMeeDoenLabel.Size = new System.Drawing.Size(128, 20);
+            NietMeeDoenLabel.Text = $"Studenten die niet mee doen";
+            // 
+            // MeeDoenLabel
+            // 
+            MeeDoenLabel.AutoSize = true;
+            MeeDoenLabel.Location = new System.Drawing.Point(18, 172);
+            MeeDoenLabel.Name = "MeeDoenLabel";
+            MeeDoenLabel.Size = new System.Drawing.Size(128, 20);
+            MeeDoenLabel.Text = $"Studenten die mee doen";
             // 
             // pnlRooms
             // 
@@ -688,7 +771,17 @@ namespace SomerenUI {
             pnlRevenueReport.Controls.Add(turnoverLabel);
             pnlRevenueReport.Controls.Add(firstDate);
             pnlRevenueReport.Controls.Add(lastDate);
-            pnlRevenueReport.Controls.Add(button1);
+            pnlRevenueReport.Controls.Add(getInfoButton);
+            // 
+            // pnlActivities
+            // 
+            pnlActivities.Controls.Add(listViewWhatActivities);
+            pnlActivities.Controls.Add(listViewPresentStudents);
+            pnlActivities.Controls.Add(listViewNonPresentStudents);
+            pnlActivities.Controls.Add(AddStudentButton);
+            pnlActivities.Controls.Add(MeeDoenLabel);
+            pnlActivities.Controls.Add(NietMeeDoenLabel);
+            pnlActivities.Controls.Add(RemoveStudentButton);
             // 
             // amountOfSales
             // 
@@ -720,15 +813,15 @@ namespace SomerenUI {
             lastDate.Value = DateTime.Today;
             lastDate.ValueChanged += onLastDateValueChange;
             // 
-            // button1
+            // Get info button
             // 
-            button1.Location = new System.Drawing.Point(777, 138);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(94, 29);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            getInfoButton.Location = new System.Drawing.Point(350, 65);
+            getInfoButton.Name = "getInfoButton";
+            getInfoButton.Size = new System.Drawing.Size(94, 29);
+            getInfoButton.TabIndex = 2;
+            getInfoButton.Text = "Get info";
+            getInfoButton.UseVisualStyleBackColor = true;
+            getInfoButton.Click += getInfoButton_Click;
             // 
             // turnoverLabel
             // 
@@ -761,6 +854,8 @@ namespace SomerenUI {
             ((System.ComponentModel.ISupportInitialize)DrinkOrderAmountBox).EndInit();
             pnlRevenueReport.ResumeLayout(false);
             pnlRevenueReport.PerformLayout();
+            pnlActivities.ResumeLayout(false);
+            pnlActivities.PerformLayout();
             pnlDrankjes.ResumeLayout(false);
             pnlDrankjes.PerformLayout();
             ResumeLayout(false);
@@ -830,8 +925,12 @@ namespace SomerenUI {
         private System.Windows.Forms.Button DrinkOrderSubmitButton;
         private System.Windows.Forms.Panel pnlDrankjes;
         private System.Windows.Forms.Panel pnlRevenueReport;
+        private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.ListView listViewTeachersActivities;
+        private System.Windows.Forms.ListView listViewWhatActivities;
         private System.Windows.Forms.ListView listViewTeachersSupervisors;
+        private System.Windows.Forms.ListView listViewPresentStudents;
+        private System.Windows.Forms.ListView listViewNonPresentStudents;
         private System.Windows.Forms.ListView listViewTeachersNonSupervisors;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.ListView listRevenueReport;
@@ -871,12 +970,16 @@ namespace SomerenUI {
         private System.Windows.Forms.DateTimePicker firstDate;
         private System.Windows.Forms.DateTimePicker lastDate;
         private System.Windows.Forms.Label amountOfSales;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button getInfoButton;
         private System.Windows.Forms.Label turnoverLabel;
         private System.Windows.Forms.Button AddBegeleiderButton;
+        private System.Windows.Forms.Button AddStudentButton;
         private System.Windows.Forms.Button RemoveBegeleiderButton;
+        private System.Windows.Forms.Button RemoveStudentButton;
         private System.Windows.Forms.Label BegeleidersLabel;
         private System.Windows.Forms.Label NonBegeleidersLabel;
         private List<System.Windows.Forms.Panel> UIPanels;
+        private System.Windows.Forms.Label NietMeeDoenLabel;
+        private System.Windows.Forms.Label MeeDoenLabel;
     }
 }
